@@ -11,41 +11,58 @@
     rel="stylesheet"
   />
 
-  <!-- Styles (root-level) -->
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 
 <body class="lang-en">
 
-  <!-- ===== GLOBAL HEADER ===== -->
+  <!-- ======================================================
+       GLOBAL HEADER
+  ======================================================= -->
   <header class="global-header">
+
+    <!-- Sidebar toggle (left) -->
+    <button id="sidebar-toggle" aria-label="Toggle sidebar" class="sidebar-toggle">
+      ☰
+    </button>
+
+    <!-- Brand -->
     <div class="brand">
       <span class="brand-mark">CV</span>
       <span class="brand-text">Reconditioning Academy</span>
     </div>
 
+    <!-- Course pill -->
     <div class="course-pill">
       <span class="pill-label">Training</span>
       <span class="pill-title">150-Point Vehicle Inspection</span>
     </div>
 
-    <!-- LANGUAGE TOGGLE -->
+    <!-- Language toggle -->
     <div class="lang-toggle" role="group" aria-label="Language selector">
       <button class="lang-btn active" data-lang-select="en">EN</button>
       <button class="lang-btn" data-lang-select="es">ES</button>
     </div>
+
   </header>
 
 
 
-  <!-- ===== APP LAYOUT ===== -->
+  <!-- ======================================================
+       LAYOUT WRAPPER (SIDEBAR + MAIN)
+  ======================================================= -->
   <div class="app-layout">
 
-    <!-- ===== SIDEBAR ===== -->
+    <!-- ======================================================
+         SIDEBAR
+    ======================================================= -->
     <aside class="sidebar" aria-label="Course outline">
+
       <div class="sidebar-inner">
 
+        <!-- Header -->
         <div class="sidebar-header">
           <h1 class="course-title" data-lang="en">Carvana 150-Point Inspection</h1>
           <h1 class="course-title" data-lang="es">Inspección de 150 Puntos de Carvana</h1>
@@ -58,7 +75,7 @@
           </p>
         </div>
 
-        <!-- Progress -->
+        <!-- Progress card -->
         <div class="progress-card">
           <span class="progress-label" data-lang="en">Course progress</span>
           <span class="progress-label" data-lang="es">Progreso del curso</span>
@@ -70,43 +87,99 @@
           <span class="progress-percent">0%</span>
         </div>
 
-        <!-- Nav -->
+
+        <!-- ======================================================
+             NAVIGATION (Lessons)
+        ======================================================= -->
         <nav class="section-nav">
 
-          <button class="nav-item active" data-target="#section-overview">
+          <button class="nav-item active" data-target="#section-overview" data-lesson="0">
+            <span class="nav-icon">🏁</span>
             <span data-lang="en">Welcome & How This Works</span>
             <span data-lang="es">Bienvenida y Cómo Funciona</span>
+            <span class="nav-status"></span>
           </button>
 
-          <button class="nav-item" data-target="#section-lesson1">
+          <button class="nav-item" data-target="#section-lesson1" data-lesson="1">
+            <span class="nav-icon">🔧</span>
             <span data-lang="en">Lesson 1 · What Is the 150-Point Inspection?</span>
             <span data-lang="es">Lección 1 · ¿Qué es la Inspección de 150 Puntos?</span>
+            <span class="nav-status"></span>
           </button>
 
-          <button class="nav-item" data-target="#section-lesson2">
+          <button class="nav-item" data-target="#section-lesson2" data-lesson="2">
+            <span class="nav-icon">🚗</span>
             <span data-lang="en">Lesson 2 · Flow in the Recon Center</span>
             <span data-lang="es">Lección 2 · Flujo en el Centro</span>
+            <span class="nav-status"></span>
           </button>
 
-          <button class="nav-item" data-target="#section-lesson3">
+          <button class="nav-item" data-target="#section-lesson3" data-lesson="3">
+            <span class="nav-icon">🛡️</span>
             <span data-lang="en">Lesson 3 · Quality & Safety</span>
             <span data-lang="es">Lección 3 · Calidad y Seguridad</span>
+            <span class="nav-status"></span>
+          </button>
+
+          <button class="nav-item" data-target="#final-assessment" data-lesson="4">
+            <span class="nav-icon">📘</span>
+            <span data-lang="en">Final Knowledge Check</span>
+            <span data-lang="es">Evaluación Final</span>
+            <span class="nav-status"></span>
           </button>
 
         </nav>
+
+
+        <!-- ======================================================
+             SETTINGS (⚙️)
+        ======================================================= -->
+
+        <button id="settings-toggle" class="settings-btn">
+          ⚙️
+        </button>
+
+        <div id="settings-panel" class="settings-panel">
+
+          <!-- Progress Lock Toggle -->
+          <div class="settings-row">
+            <label class="settings-label" data-lang="en">Progress Lock</label>
+            <label class="settings-label" data-lang="es">Bloqueo de Progreso</label>
+
+            <label class="switch">
+              <input type="checkbox" id="lock-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Reset Progress -->
+          <div class="settings-row">
+            <button id="reset-progress" class="btn-reset">
+              <span data-lang="en">Reset Progress</span>
+              <span data-lang="es">Reiniciar Progreso</span>
+            </button>
+          </div>
+
+        </div>
+
       </div>
     </aside>
 
 
 
 
-    <!-- ===== MAIN CONTENT ===== -->
+    <!-- ======================================================
+         MAIN CONTENT (COURSE)
+    ======================================================= -->
     <main class="content" id="main-content">
 
-      <!-- =============================
-           HERO / OVERVIEW
-      ============================== -->
-      <section id="section-overview" class="course-section course-hero">
+
+
+
+      <!-- ======================================================
+           OVERVIEW SECTION
+      ======================================================= -->
+      <section id="section-overview" class="course-section course-hero" data-lesson-id="0">
         <div class="course-section-inner">
 
           <div class="hero-grid">
@@ -152,6 +225,9 @@
 
             </div>
 
+
+
+            <!-- Hero card -->
             <div class="hero-media">
               <div class="hero-card">
                 <div class="hero-card-header">
@@ -159,6 +235,7 @@
                   <span class="hero-chip" data-lang="es">Vista del Centro</span>
                   <span class="hero-status-dot"></span>
                 </div>
+
                 <div class="hero-card-body">
                   <img
                     src="assets/img/hero-illustration.png"
@@ -199,212 +276,57 @@
 
 
 
-      <!-- =============================
-           LESSON 1: WHAT IS 150-POINT
-      ============================== -->
-      <section id="section-lesson1" class="course-section">
+      <!-- ======================================================
+           LESSON 1 (with quiz)
+      ======================================================= -->
+      <section id="section-lesson1" class="course-section" data-lesson-id="1">
         <div class="course-section-inner">
 
           <header class="section-header">
-
             <p class="eyebrow" data-lang="en">Lesson 1</p>
             <p class="eyebrow" data-lang="es">Lección 1</p>
 
-            <h2 class="section-title" data-lang="en">
-              What is the 150-Point Inspection?
-            </h2>
-            <h2 class="section-title" data-lang="es">
-              ¿Qué es la Inspección de 150 Puntos?
-            </h2>
-
-            <p class="section-subtitle" data-lang="en">
-              It’s our promise of safety, quality, and trust for every Carvana customer.
-            </p>
-            <p class="section-subtitle" data-lang="es">
-              Es nuestra promesa de seguridad, calidad y confianza para cada cliente.
-            </p>
+            <h2 class="section-title" data-lang="en">What is the 150-Point Inspection?</h2>
+            <h2 class="section-title" data-lang="es">¿Qué es la Inspección de 150 Puntos?</h2>
           </header>
 
+          (LESSON CONTENT — TRUNCATED TO SAVE SCREEN SPACE)
+          (KEEP YOUR EXISTING LESSON BLOCKS HERE)
 
+          <!-- QUIZ BLOCK -->
+          <div class="block block-quiz reveal" data-quiz-id="1">
 
-          <!-- UNDER THE HOOD -->
-          <div class="block block-split reveal">
+            <h3 data-lang="en">Quick Check</h3>
+            <h3 data-lang="es">Revisión Rápida</h3>
 
-            <div class="split-text">
-              <h3 data-lang="en">Under the Hood</h3>
-              <h3 data-lang="es">Debajo del Capó</h3>
+            <p data-lang="en">Which of the following is checked under the hood?</p>
+            <p data-lang="es">¿Cuál de los siguientes se revisa debajo del capó?</p>
 
-              <ul>
-                <li data-lang="en">Battery, alternator, belts, hoses</li>
-                <li data-lang="es">Batería, alternador, correas, mangueras</li>
-
-                <li data-lang="en">Ignition & fuel systems</li>
-                <li data-lang="es">Sistemas de ignición y combustible</li>
-
-                <li data-lang="en">Cooling, radiator, pumps</li>
-                <li data-lang="es">Enfriamiento, radiador, bombas</li>
-
-                <li data-lang="en">Power steering & AC components</li>
-                <li data-lang="es">Dirección asistida y componentes del A/C</li>
-              </ul>
-            </div>
-
-            <div class="split-media">
-              <div class="image-placeholder">
-                <img src="assets/img/underhood.png" class="image-placeholder-img" alt="Under the hood inspection" />
-                <span class="image-caption" data-lang="en">Replace with your shop photo</span>
-                <span class="image-caption" data-lang="es">Reemplazar con foto real</span>
-              </div>
-            </div>
-          </div>
-
-
-
-
-          <!-- VEHICLE EXTERIOR -->
-          <div class="block block-split reveal">
-
-            <div class="split-text">
-              <h3 data-lang="en">Vehicle Exterior</h3>
-              <h3 data-lang="es">Exterior del Vehículo</h3>
-
-              <ul>
-                <li data-lang="en">Lights, lenses, and signals</li>
-                <li data-lang="es">Luces, lentes, y señales</li>
-
-                <li data-lang="en">Wipers, mirrors, glass</li>
-                <li data-lang="es">Limpiaparabrisas, espejos, vidrios</li>
-
-                <li data-lang="en">Panels, bumpers, trim</li>
-                <li data-lang="es">Paneles, defensas, molduras</li>
-              </ul>
-            </div>
-
-            <div class="split-media">
-              <div class="image-placeholder">
-                <img src="assets/img/exterior.png" class="image-placeholder-img" alt="Exterior inspection" />
-                <span class="image-caption" data-lang="en">Exterior oversight</span>
-                <span class="image-caption" data-lang="es">Revisión exterior</span>
-              </div>
-            </div>
-          </div>
-
-
-
-
-          <!-- VEHICLE INTERIOR -->
-          <div class="block block-split reveal">
-
-            <div class="split-text">
-              <h3 data-lang="en">Vehicle Interior</h3>
-              <h3 data-lang="es">Interior del Vehículo</h3>
-
-              <ul>
-                <li data-lang="en">Dash, gauges, & warning lights</li>
-                <li data-lang="es">Tablero, indicadores, y luces</li>
-
-                <li data-lang="en">Seats, belts, and airbags</li>
-                <li data-lang="es">Asientos, cinturones, y bolsas de aire</li>
-
-                <li data-lang="en">Windows, locks, doors</li>
-                <li data-lang="es">Ventanas, seguros, puertas</li>
-              </ul>
-            </div>
-
-            <div class="split-media">
-              <div class="image-placeholder">
-                <img src="assets/img/interior.png" class="image-placeholder-img" alt="Interior inspection" />
-                <span class="image-caption" data-lang="en">Interior inspection</span>
-                <span class="image-caption" data-lang="es">Inspección interior</span>
-              </div>
-            </div>
-          </div>
-
-
-
-          <!-- BRAKES, WHEELS & TIRES -->
-          <div class="block reveal">
-            <h3 data-lang="en">Brakes, wheels & tires</h3>
-            <h3 data-lang="es">Frenos, llantas y neumáticos</h3>
-
-            <ul>
-              <li data-lang="en">Pads, rotors, drums, and shoes – wear, noise, and leaks.</li>
-              <li data-lang="es">Pastas, rotores, tambores y zapatas: desgaste, ruido y fugas.</li>
-
-              <li data-lang="en">Brake lines and hoses – damage, corrosion, or rubbing.</li>
-              <li data-lang="es">Líneas y mangueras de freno: daño, corrosión o roce.</li>
-
-              <li data-lang="en">Wheels and tires – tread depth, damage, and correct size.</li>
-              <li data-lang="es">Llantas y neumáticos: dibujo, daños y tamaño correcto.</li>
-            </ul>
-          </div>
-
-
-          <!-- STEERING & SUSPENSION -->
-          <div class="block reveal">
-            <h3 data-lang="en">Steering & suspension</h3>
-            <h3 data-lang="es">Dirección y suspensión</h3>
-
-            <ul>
-              <li data-lang="en">Shocks, struts, and springs – leaks, damage, or sagging.</li>
-              <li data-lang="es">Amortiguadores, struts y resortes: fugas, daños o hundimiento.</li>
-
-              <li data-lang="en">Ball joints, tie rods, and bushings – play and wear.</li>
-              <li data-lang="es">Rótulas, terminales y bujes: juego y desgaste.</li>
-
-              <li data-lang="en">Steering components – power steering pump, rack, and lines.</li>
-              <li data-lang="es">Componentes de dirección: bomba, cremallera y líneas.</li>
-            </ul>
-          </div>
-
-
-          <!-- ROAD TEST & FINAL CHECKS (OVERVIEW) -->
-          <div class="block reveal">
-            <h3 data-lang="en">Road test & final checks (overview)</h3>
-            <h3 data-lang="es">Prueba de manejo y revisiones finales (vista general)</h3>
-
-            <ul>
-              <li data-lang="en">Engine performance – starts, idle, and acceleration feel.</li>
-              <li data-lang="es">Desempeño del motor: encendido, ralentí y aceleración.</li>
-
-              <li data-lang="en">Steering, braking, and noise – pulls, vibration, or unusual sounds.</li>
-              <li data-lang="es">Dirección, frenado y ruidos: jaloneos, vibración o ruidos extraños.</li>
-
-              <li data-lang="en">No warning lights – dash must be clear before final approval.</li>
-              <li data-lang="es">Sin luces de advertencia: tablero limpio antes de aprobar.</li>
-            </ul>
-          </div>
-
-
-
-          <!-- ACCORDION: New vs Experienced -->
-          <div class="block block-accordion reveal">
-
-            <h3 data-lang="en">Where you fit in</h3>
-            <h3 data-lang="es">Dónde entras tú</h3>
-
-            <div class="accordion-item">
-              <button class="accordion-header">
-                <span data-lang="en">If you are new…</span>
-                <span data-lang="es">Si eres nuevo…</span>
-                <span class="accordion-icon">+</span>
+            <div class="quiz-choices">
+              <button class="quiz-choice" data-correct="false">
+                <span data-lang="en">Seat belt tension</span>
+                <span data-lang="es">Tensión del cinturón</span>
               </button>
-              <div class="accordion-body">
-                <p data-lang="en">We use simple language, visuals, and examples so everyone can follow.</p>
-                <p data-lang="es">Usamos lenguaje simple, visuales y ejemplos para que todos puedan seguir.</p>
-              </div>
+
+              <button class="quiz-choice" data-correct="true">
+                <span data-lang="en">Cooling system (radiator, hoses, fans)</span>
+                <span data-lang="es">Sistema de enfriamiento</span>
+              </button>
+
+              <button class="quiz-choice" data-correct="false">
+                <span data-lang="en">Tail light condition</span>
+                <span data-lang="es">Condición de luces traseras</span>
+              </button>
             </div>
 
-            <div class="accordion-item">
-              <button class="accordion-header">
-                <span data-lang="en">If you are experienced…</span>
-                <span data-lang="es">Si tienes experiencia…</span>
-                <span class="accordion-icon">+</span>
-              </button>
-              <div class="accordion-body">
-                <p data-lang="en">This shows how your work aligns with Carvana’s standards & documentation.</p>
-                <p data-lang="es">Esto muestra cómo tu trabajo se alinea con los estándares y documentación de Carvana.</p>
-              </div>
+            <div class="quiz-feedback quiz-correct" style="display:none;">
+              <p data-lang="en">Correct!</p>
+              <p data-lang="es">¡Correcto!</p>
+            </div>
+
+            <div class="quiz-feedback quiz-incorrect" style="display:none;">
+              <p data-lang="en">Try again.</p>
+              <p data-lang="es">Intenta de nuevo.</p>
             </div>
 
           </div>
@@ -416,163 +338,58 @@
 
 
 
-
-      <!-- =============================
-           LESSON 2: RUNNING THE FLOW
-      ============================== -->
-      <section id="section-lesson2" class="course-section">
+      <!-- ======================================================
+           LESSON 2 (with quiz)
+      ======================================================= -->
+      <section id="section-lesson2" class="course-section" data-lesson-id="2">
         <div class="course-section-inner">
 
           <header class="section-header">
-
             <p class="eyebrow" data-lang="en">Lesson 2</p>
             <p class="eyebrow" data-lang="es">Lección 2</p>
 
-            <h2 class="section-title" data-lang="en">
-              The 150-Point Flow in the Recon Center
-            </h2>
-            <h2 class="section-title" data-lang="es">
-              El Flujo de 150 Puntos en el Centro
-            </h2>
-
-            <p class="section-subtitle" data-lang="en">
-              Follow the vehicle from arrival to final quality check.
-            </p>
-            <p class="section-subtitle" data-lang="es">
-              Sigue el vehículo desde que llega hasta la revisión final.
-            </p>
-
+            <h2 class="section-title" data-lang="en">150-Point Flow in the Recon Center</h2>
+            <h2 class="section-title" data-lang="es">Flujo de 150 Puntos</h2>
           </header>
 
+          (KEEP EXISTING LESSON BLOCKS HERE)
 
+          <!-- QUIZ BLOCK -->
+          <div class="block block-quiz reveal" data-quiz-id="2">
 
-          <!-- VIDEO -->
-          <div class="block reveal">
-            <h3 data-lang="en">Watch: 150-Point flow overview</h3>
-            <h3 data-lang="es">Mira: Resumen del flujo</h3>
+            <h3 data-lang="en">Quick Check</h3>
+            <h3 data-lang="es">Revisión Rápida</h3>
 
-            <p data-lang="en">A quick look at how the line works.</p>
-            <p data-lang="es">Una vista rápida de cómo funciona la línea.</p>
+            <p data-lang="en">What is the FIRST step in the recon flow?</p>
+            <p data-lang="es">¿Cuál es el PRIMER paso en el flujo?</p>
 
-            <div class="video-wrapper">
-              <video controls preload="metadata" class="course-video">
-                <source src="assets/video/intro-line-overview.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </div>
+            <div class="quiz-choices">
+              <button class="quiz-choice" data-correct="true">
+                <span data-lang="en">Check-in & walk-around</span>
+                <span data-lang="es">Recepción y revisión</span>
+              </button>
 
+              <button class="quiz-choice" data-correct="false">
+                <span data-lang="en">Road test</span>
+                <span data-lang="es">Prueba de manejo</span>
+              </button>
 
-
-
-          <!-- 5 MAJOR STEPS -->
-          <div class="block block-split reveal">
-
-            <div class="split-text">
-
-              <h3 data-lang="en">High-level steps</h3>
-              <h3 data-lang="es">Pasos principales</h3>
-
-              <ol>
-                <li data-lang="en">Check-in & walk-around</li>
-                <li data-lang="es">Recepción y revisión inicial</li>
-
-                <li data-lang="en">Mechanical & safety inspection</li>
-                <li data-lang="es">Inspección mecánica y de seguridad</li>
-
-                <li data-lang="en">Interior & exterior checks</li>
-                <li data-lang="es">Revisión interior y exterior</li>
-
-                <li data-lang="en">Road test (if required)</li>
-                <li data-lang="es">Prueba de manejo (si aplica)</li>
-
-                <li data-lang="en">Final quality + documentation</li>
-                <li data-lang="es">Calidad final y documentación</li>
-              </ol>
-
+              <button class="quiz-choice" data-correct="false">
+                <span data-lang="en">Final documentation</span>
+                <span data-lang="es">Documentación final</span>
+              </button>
             </div>
 
-            <div class="split-media">
-              <div class="image-placeholder">
-                <img src="assets/img/line-flow.png" class="image-placeholder-img" alt="Recon line flow" />
-                <span class="image-caption" data-lang="en">Replace with your actual line map</span>
-                <span class="image-caption" data-lang="es">Reemplaza con tu mapa de línea</span>
-              </div>
+            <div class="quiz-feedback quiz-correct" style="display:none;">
+              <p data-lang="en">Correct!</p>
+              <p data-lang="es">¡Correcto!</p>
             </div>
 
-          </div>
+            <div class="quiz-feedback quiz-incorrect" style="display:none;">
+              <p data-lang="en">Try again.</p>
+              <p data-lang="es">Intenta de nuevo.</p>
+            </div>
 
-
-
-          <!-- COMMUNICATION & HANDOFFS -->
-          <div class="block reveal">
-            <h3 data-lang="en">Communication & handoffs</h3>
-            <h3 data-lang="es">Comunicación y traspasos</h3>
-
-            <p data-lang="en">
-              The 150-Point Inspection is a team effort. Every station leaves clear notes
-              so the next person knows what was done, what was found, and what still needs attention.
-            </p>
-            <p data-lang="es">
-              La Inspección de 150 Puntos es un trabajo en equipo. Cada estación deja notas claras
-              para que la siguiente persona sepa qué se hizo, qué se encontró y qué falta por revisar.
-            </p>
-
-            <ul>
-              <li data-lang="en">Use the same terms and abbreviations as your team.</li>
-              <li data-lang="es">Usa los mismos términos y abreviaturas que tu equipo.</li>
-
-              <li data-lang="en">Call out safety issues first, then cosmetic items.</li>
-              <li data-lang="es">Primero menciona temas de seguridad y luego los cosméticos.</li>
-
-              <li data-lang="en">If you’re unsure, pause and ask instead of guessing.</li>
-              <li data-lang="es">Si tienes dudas, pausa y pregunta en lugar de adivinar.</li>
-            </ul>
-          </div>
-
-
-
-
-          <!-- CHECKLIST -->
-          <div class="block block-checklist reveal">
-
-            <h3 data-lang="en">Your station: quick self-check</h3>
-            <h3 data-lang="es">Tu estación: auto-revisión</h3>
-
-            <ul class="checklist">
-
-              <li>
-                <label>
-                  <input type="checkbox" />
-                  <span data-lang="en">I know my 150-Point responsibilities.</span>
-                  <span data-lang="es">Conozco mis responsabilidades.</span>
-                </label>
-              </li>
-
-              <li>
-                <label>
-                  <input type="checkbox" />
-                  <span data-lang="en">I follow the same order every time.</span>
-                  <span data-lang="es">Sigo el mismo orden siempre.</span>
-                </label>
-              </li>
-
-              <li>
-                <label>
-                  <input type="checkbox" />
-                  <span data-lang="en">My notes are clear for the next person.</span>
-                  <span data-lang="es">Mis notas son claras para la siguiente persona.</span>
-                </label>
-              </li>
-
-              <li>
-                <label>
-                  <input type="checkbox" />
-                  <span data-lang="en">I pause and ask when unsure.</span>
-                  <span data-lang="es">Hago una pausa y pregunto si tengo dudas.</span>
-                </label>
-              </li>
-
-            </ul>
           </div>
 
         </div>
@@ -582,90 +399,78 @@
 
 
 
-
-      <!-- =============================
-           LESSON 3: QUALITY & SAFETY
-      ============================== -->
-      <section id="section-lesson3" class="course-section">
+      <!-- ======================================================
+           LESSON 3 (content only)
+      ======================================================= -->
+      <section id="section-lesson3" class="course-section" data-lesson-id="3">
         <div class="course-section-inner">
 
           <header class="section-header">
-
             <p class="eyebrow" data-lang="en">Lesson 3</p>
             <p class="eyebrow" data-lang="es">Lección 3</p>
 
-            <h2 class="section-title" data-lang="en">
-              Quality, safety, and what happens next
-            </h2>
-            <h2 class="section-title" data-lang="es">
-              Calidad, seguridad y qué sigue después
-            </h2>
-
-            <p class="section-subtitle" data-lang="en">
-              The 150-Point Inspection protects customers, coworkers, and the Carvana brand.
-            </p>
-            <p class="section-subtitle" data-lang="es">
-              La Inspección de 150 Puntos protege a clientes, compañeros y la marca Carvana.
-            </p>
-
+            <h2 class="section-title" data-lang="en">Quality & Safety</h2>
+            <h2 class="section-title" data-lang="es">Calidad y Seguridad</h2>
           </header>
 
-
-
-
-          <!-- Quality Promise -->
-          <div class="block block-text reveal">
-
-            <h3 data-lang="en">Your quality promise</h3>
-            <h3 data-lang="es">Tu compromiso de calidad</h3>
-
-            <ol>
-              <li data-lang="en">Follow the full process, no shortcuts.</li>
-              <li data-lang="es">Sigue todo el proceso, sin atajos.</li>
-
-              <li data-lang="en">Speak up when something is off.</li>
-              <li data-lang="es">Habla si algo no está bien.</li>
-
-              <li data-lang="en">Write clear notes for the next teammate.</li>
-              <li data-lang="es">Escribe notas claras para tu compañero.</li>
-            </ol>
-          </div>
-
-
-
-
-          <!-- Reflection -->
-          <div class="block block-highlight reveal">
-
-            <h3 data-lang="en">Reflection</h3>
-            <h3 data-lang="es">Reflexión</h3>
-
-            <p data-lang="en">
-              Think of a time something was missed in an inspection.<br />
-              How would following the 150-Point process have helped?
-            </p>
-
-            <p data-lang="es">
-              Piensa en una vez que algo se pasó en una inspección.<br />
-              ¿Cómo habría ayudado seguir el proceso de 150 puntos?
-            </p>
-          </div>
-
-
-
-
-          <!-- Back to top -->
-          <footer class="section-footer">
-            <button class="btn-primary" id="back-to-top">
-              <span data-lang="en">Back to top</span>
-              <span data-lang="es">Volver arriba</span>
-            </button>
-          </footer>
+          (KEEP EXISTING LESSON CONTENT HERE)
 
         </div>
       </section>
 
 
+
+
+
+      <!-- ======================================================
+           FINAL ASSESSMENT (placeholder)
+      ======================================================= -->
+      <section id="final-assessment" class="course-section" data-lesson-id="4">
+        <div class="course-section-inner">
+
+          <header class="section-header">
+            <p class="eyebrow" data-lang="en">Final Check</p>
+            <p class="eyebrow" data-lang="es">Evaluación Final</p>
+
+            <h2 class="section-title" data-lang="en">Final Knowledge Check</h2>
+            <h2 class="section-title" data-lang="es">Evaluación Final</h2>
+          </header>
+
+          <div class="block block-highlight reveal">
+            <p data-lang="en">Final assessment coming soon.</p>
+            <p data-lang="es">Evaluación final próximamente.</p>
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- ======================================================
+           COURSE COMPLETE
+      ======================================================= -->
+      <section id="course-complete" class="course-section" style="display:none;">
+        <div class="course-section-inner">
+
+          <header class="section-header">
+            <h2 data-lang="en" class="section-title">Congratulations!</h2>
+            <h2 data-lang="es" class="section-title">¡Felicidades!</h2>
+          </header>
+
+          <div class="block block-highlight reveal">
+            <p data-lang="en">You’ve completed the full Carvana 150-Point Inspection training.</p>
+            <p data-lang="es">Has completado el entrenamiento de 150 Puntos de Carvana.</p>
+          </div>
+
+          <button id="restart-course" class="btn-primary">
+            <span data-lang="en">Restart Course</span>
+            <span data-lang="es">Reiniciar Curso</span>
+          </button>
+
+        </div>
+      </section>
 
     </main>
   </div>
@@ -673,7 +478,10 @@
 
 
 
-  <!-- ===== JS (root-level) ===== -->
+
+  <!-- ======================================================
+       JAVASCRIPT
+  ======================================================= -->
   <script src="script.js" defer></script>
 
 </body>
