@@ -1,39 +1,33 @@
 /* ==========================================================================
    MODULE 1 — LANGUAGE SWITCHING
    ========================================================================== */
-
 const LanguageModule = (() => {
     const langButtons = document.querySelectorAll("[data-lang-btn]");
-    const translatableElements = document.querySelectorAll("[data-lang]");
+    const langElements = document.querySelectorAll("[data-lang]");
 
-    function setLanguage(lang) {
-        // Update button UI
-        langButtons.forEach(btn => {
+    function applyLanguage(lang) {
+        // Update active button
+        langButtons.forEach((btn) => {
             const isActive = btn.dataset.langBtn === lang;
             btn.classList.toggle("active", isActive);
             btn.setAttribute("aria-pressed", isActive);
         });
 
-        // Show the selected language text
-        translatableElements.forEach(el => {
-            const show = el.dataset.lang === lang;
-            if (show) {
-                el.hidden = false;
-            } else {
-                el.hidden = true;
-            }
+        // Show correct content
+        langElements.forEach((el) => {
+            el.hidden = el.dataset.lang !== lang;
         });
     }
 
-    // Click listeners
-    langButtons.forEach(btn => {
+    // Set up listeners
+    langButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            setLanguage(btn.dataset.langBtn);
+            applyLanguage(btn.dataset.langBtn);
         });
     });
 
-    // Default to English
-    setLanguage("en");
+    // Default
+    applyLanguage("en");
 })();
 
 
@@ -41,19 +35,18 @@ const LanguageModule = (() => {
 /* ==========================================================================
    MODULE 2 — SIDEBAR TOGGLE
    ========================================================================== */
-
 const SidebarModule = (() => {
-
     const sidebar = document.getElementById("sidebar");
     const toggleButton = document.getElementById("sidebarToggle");
+    const content = document.getElementById("content");
 
     toggleButton.addEventListener("click", () => {
-        const isCollapsed = sidebar.classList.toggle("collapsed");
+        const collapsed = sidebar.classList.toggle("collapsed");
 
-        // Accessibility
-        toggleButton.setAttribute("aria-expanded", !isCollapsed);
+        toggleButton.setAttribute("aria-expanded", collapsed);
+        
+        // Adjust content area (CSS already handles this)
     });
-
 })();
 
 
@@ -61,27 +54,24 @@ const SidebarModule = (() => {
 /* ==========================================================================
    MODULE 3 — SMOOTH SCROLL NAVIGATION
    ========================================================================== */
-
 const NavigationModule = (() => {
     const navItems = document.querySelectorAll(".nav-item");
 
-    navItems.forEach(item => {
+    navItems.forEach((item) => {
         item.addEventListener("click", () => {
             const targetSelector = item.dataset.target;
-            const target = document.querySelector(targetSelector);
-            if (!target) return;
+            const targetElement = document.querySelector(targetSelector);
+            if (!targetElement) return;
 
-            // Set active item
-            navItems.forEach(n => n.classList.remove("active"));
+            navItems.forEach((n) => n.classList.remove("active"));
             item.classList.add("active");
 
-            // Smooth scroll
-            const yOffset = -120; // adjust for floating bar
-            const y = target.getBoundingClientRect().top + window.scrollY + yOffset;
+            const headerOffset = 130; // floating top bar
+            const y = targetElement.getBoundingClientRect().top + window.scrollY - headerOffset;
 
             window.scrollTo({
                 top: y,
-                behavior: "smooth"
+                behavior: "smooth",
             });
         });
     });
@@ -92,44 +82,44 @@ const NavigationModule = (() => {
 /* ==========================================================================
    MODULE 4 — ACCORDION + PROGRESS TRACKING
    ========================================================================== */
-
 const AccordionModule = (() => {
-    const accordionItems = document.querySelectorAll(".accordion-item");
+    const items = document.querySelectorAll(".accordion-item");
     const progressFill = document.getElementById("progressFill");
     const progressPercent = document.getElementById("progressPercent");
 
-    const openedSections = new Set();
+    const opened = new Set();
 
-    accordionItems.forEach((item, index) => {
+    items.forEach((item, index) => {
         const header = item.querySelector(".accordion-header");
         const body = item.querySelector(".accordion-body");
 
-        // If open on load
+        // Default open
         if (item.classList.contains("open")) {
+            opened.add(index);
             body.style.maxHeight = body.scrollHeight + "px";
-            openedSections.add(index);
         }
 
         header.addEventListener("click", () => {
             const isOpen = item.classList.contains("open");
 
-            // Close all other panels
-            accordionItems.forEach((panel, i) => {
+            // Close all others
+            items.forEach((other, i) => {
                 if (i !== index) {
-                    panel.classList.remove("open");
-                    panel.querySelector(".accordion-body").style.maxHeight = null;
+                    other.classList.remove("open");
+                    other.querySelector(".accordion-body").style.maxHeight = null;
+                    opened.delete(i);
                 }
             });
 
-            // Toggle selected
+            // Toggle clicked one
             if (!isOpen) {
                 item.classList.add("open");
                 body.style.maxHeight = body.scrollHeight + "px";
-                openedSections.add(index);
+                opened.add(index);
             } else {
                 item.classList.remove("open");
                 body.style.maxHeight = null;
-                openedSections.delete(index);
+                opened.delete(index);
             }
 
             updateProgress();
@@ -137,16 +127,14 @@ const AccordionModule = (() => {
     });
 
     function updateProgress() {
-        const total = accordionItems.length;
-        const completed = openedSections.size;
-        const percent = Math.round((completed / total) * 100);
+        const total = items.length;
+        const percent = Math.round((opened.size / total) * 100);
 
         progressFill.style.width = percent + "%";
         progressPercent.textContent = percent + "%";
     }
 
     updateProgress();
-
 })();
 
 
@@ -154,40 +142,36 @@ const AccordionModule = (() => {
 /* ==========================================================================
    MODULE 5 — RANDOM BLUEPRINT STREAK ANIMATION
    ========================================================================== */
-
 const BlueprintAnimation = (() => {
     const ground = document.getElementById("ground-bg");
 
-    function spawnStreak() {
+    function addStreak() {
         const streak = document.createElement("div");
-        streak.classList.add("ground-streak");
+        streak.className = "ground-streak";
 
-        const width = Math.random() * 120 + 40;
+        const size = Math.floor(Math.random() * 120 + 60);
         const top = Math.random() * 100;
-        const duration = Math.random() * 4 + 3;
+        const duration = Math.random() * 3 + 2;
 
-        Object.assign(streak.style, {
-            width: `${width}px`,
-            top: `${top}%`,
-            left: `-${width}px`,
-            animation: `streakMove ${duration}s linear forwards`
-        });
+        streak.style.width = `${size}px`;
+        streak.style.top = `${top}%`;
+        streak.style.left = `-${size}px`;
+        streak.style.animation = `streakMove ${duration}s linear forwards`;
 
         ground.appendChild(streak);
 
         setTimeout(() => streak.remove(), duration * 1000);
     }
 
-    // Spawn every 2–3 seconds
-    setInterval(spawnStreak, 2000);
+    setInterval(addStreak, 2200);
 
     // Inject keyframes
     const style = document.createElement("style");
     style.textContent = `
         @keyframes streakMove {
-            0% { opacity: 0; transform: translateX(0); }
-            25% { opacity: 1; }
-            80% { opacity: 0.4; }
+            0%   { opacity: 0; transform: translateX(0); }
+            20%  { opacity: 1; }
+            80%  { opacity: 0.5; }
             100% { opacity: 0; transform: translateX(160vw); }
         }
     `;
@@ -197,32 +181,16 @@ const BlueprintAnimation = (() => {
 
 
 /* ==========================================================================
-   MODULE 6 — HERO IMAGE ADAPTIVE TEXT & RESPONSIVE SIZING
+   MODULE 6 — HERO RESPONSIVE behavior
    ========================================================================== */
-
 const HeroModule = (() => {
-    const heroImage = document.querySelector(".hero-image");
+    const heroImg = document.querySelector(".hero-image");
 
-    // Ensures proper scaling on mobile / ultra-wide
     function adjustHero() {
-        if (!heroImage) return;
-
-        const ratio = window.innerWidth / window.innerHeight;
-
-        // Slight zoom for cinematic feel
-        if (ratio > 1.8) {
-            heroImage.style.objectFit = "cover";
-        } else {
-            heroImage.style.objectFit = "cover";
-        }
+        if (!heroImg) return;
+        heroImg.style.objectFit = "cover";
     }
 
     window.addEventListener("resize", adjustHero);
     adjustHero();
 })();
-
-
-
-/* ==========================================================================
-   END OF FILE
-   ========================================================================== */
