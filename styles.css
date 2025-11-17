@@ -1,0 +1,486 @@
+/* ==========================================================================
+   BASE RESET & GLOBAL SETTINGS
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: "Inter", sans-serif;
+    background: #000510;
+    overflow-x: hidden;
+    color: #e5e7eb;
+    scroll-behavior: smooth;
+}
+
+/* Hide all non-active languages (JS toggles hidden attr) */
+[data-lang][hidden] {
+    display: none !important;
+}
+
+/* ==========================================================================
+   GLOBAL BACKGROUND – GROUND LEVEL BLUEPRINT
+   ========================================================================== */
+
+#ground-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background: url("assets/img/background-not-floating-1.png") center/cover no-repeat;
+    filter: brightness(0.9);
+}
+
+/* Blueprint Grid Overlay */
+#blueprint-grid {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(0, 200, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 200, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridPulse 6s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* Random glowing blueprint streaks */
+.ground-streak {
+    position: fixed;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.8), transparent);
+    box-shadow: 0 0 18px rgba(0, 200, 255, 0.6);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   FLOATING TOP NAVIGATION BAR
+   ========================================================================== */
+
+.floating-topbar {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1250px, 94%);
+    height: 68px;
+
+    background: rgba(2, 15, 35, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    border-radius: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 25px;
+    z-index: 2000;
+
+    box-shadow:
+        0 6px 25px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 200, 255, 0.12);
+}
+
+.menu-btn {
+    font-size: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #00c8ff;
+    transition: 0.3s ease;
+}
+
+.menu-btn:hover {
+    transform: scale(1.15);
+    color: #33d9ff;
+}
+
+/* Brand */
+.topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-icon {
+    height: 34px;
+    filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.4));
+}
+
+.brand-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
+}
+
+/* Language Toggle */
+.lang-toggle {
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+    background: rgba(0, 20, 35, 0.6);
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    border-radius: 30px;
+}
+
+.lang-btn {
+    padding: 6px 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+
+    background: transparent;
+    color: #9dbbd4;
+    transition: all 0.3s;
+}
+
+.lang-btn.active {
+    background: #00c8ff;
+    color: #00121f;
+    box-shadow: 0 0 16px rgba(0, 200, 255, 0.6);
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+
+.sidebar {
+    position: fixed;
+    top: 100px;
+    left: 15px;
+
+    width: 310px;
+    max-height: calc(100vh - 130px);
+
+    background: rgba(2, 15, 35, 0.88);
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    backdrop-filter: blur(18px);
+    border-radius: 18px;
+
+    padding: 0;
+    overflow-y: auto;
+
+    transition: transform 0.35s ease;
+    z-index: 1500;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-350px);
+}
+
+.sidebar-inner {
+    padding: 22px;
+}
+
+.sidebar h2 {
+    color: white;
+    margin-bottom: 6px;
+    text-shadow: 0 0 15px rgba(0, 200, 255, 0.4);
+}
+
+.sidebar p {
+    color: #8ea7bf;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background: rgba(0, 25, 50, 0.6);
+    border-radius: 30px;
+    overflow: hidden;
+    height: 12px;
+    border: 1px solid rgba(0, 200, 255, 0.25);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0066cc, #00c8ff);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.progress-percent {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #00c8ff;
+    font-weight: 600;
+}
+
+/* Sidebar navigation */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    background: rgba(0, 20, 35, 0.6);
+    color: white;
+    border: 1px solid rgba(0, 200, 255, 0.22);
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.95rem;
+
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background: rgba(0, 200, 255, 0.1);
+    transform: translateX(4px);
+}
+
+.nav-item.active {
+    background: rgba(0, 200, 255, 0.2);
+    border-color: #00c8ff;
+    box-shadow: 0 0 18px rgba(0, 200, 255, 0.4);
+}
+
+/* ==========================================================================
+   MAIN CONTENT
+   ========================================================================== */
+
+#content {
+    padding-top: 140px;
+    margin-left: 360px;
+
+    transition: margin-left 0.35s ease;
+}
+
+.sidebar.collapsed ~ #content {
+    margin-left: 20px;
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero-section {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-text-card {
+    position: absolute;
+    left: 50px;
+    bottom: 40px;
+
+    background: rgba(0, 10, 25, 0.55);
+    padding: 30px 40px;
+    border-radius: 16px;
+
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hero-text-card h1 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.25;
+    color: white;
+    text-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
+}
+
+/* ==========================================================================
+   FLOATING PANELS
+   ========================================================================== */
+
+.floating-panel {
+    width: min(820px, 90%);
+    margin: 60px auto;
+    padding: 45px;
+
+    background: url("assets/img/background-floating-1.png") center/cover no-repeat,
+                rgba(2, 15, 35, 0.7);
+
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    border-radius: 20px;
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 16px 45px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(0, 200, 255, 0.22);
+}
+
+.panel-title {
+    font-size: 2rem;
+    margin-bottom: 18px;
+    color: #00c8ff;
+    text-shadow: 0 0 22px rgba(0, 200, 255, 0.4);
+}
+
+/* ==========================================================================
+   SEPARATOR
+   ========================================================================== */
+
+.separator {
+    width: 90%;
+    max-width: 800px;
+    display: block;
+    margin: 40px auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
+}
+
+/* ==========================================================================
+   VIDEO FRAME
+   ========================================================================== */
+
+.video-frame {
+    position: relative;
+    padding-top: 56.25%;
+    border-radius: 16px;
+    overflow: hidden;
+
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ==========================================================================
+   TWO COLUMN LAYOUT
+   ========================================================================== */
+
+.two-col {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.col-image img {
+    width: 180px;
+    filter: drop-shadow(0 0 22px rgba(0,200,255,0.45));
+}
+
+/* ==========================================================================
+   ACCORDION
+   ========================================================================== */
+
+.accordion-item {
+    margin-top: 20px;
+    border: 1px solid rgba(0, 200, 255, 0.3);
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(0, 20, 35, 0.6);
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.acc-icon {
+    font-size: 1.3rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,200,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-body ul {
+    padding-top: 10px;
+}
+
+.accordion-body li {
+    margin-bottom: 6px;
+}
+
+/* Icons */
+.accordion-icons {
+    margin-top: 16px;
+    display: flex;
+    gap: 26px;
+}
+
+.accordion-icons img {
+    width: 70px;
+    filter: drop-shadow(0 0 18px rgba(0,200,255,0.5));
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 900px) {
+    #content {
+        margin-left: 20px !important;
+    }
+
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-text-card {
+        left: 20px;
+        right: 20px;
+        width: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .floating-topbar {
+        width: 100%;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+    }
+
+    .sidebar {
+        width: 90%;
+        left: 5%;
+    }
+}
