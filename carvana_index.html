@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carvana 150-Point Inspection Training</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- TOP FLOATING HEADER BAR -->
+  <header class="top-bar">
+    <button class="menu-button" id="sidebarToggle" aria-label="Toggle course menu">
+      ☰
+    </button>
+
+    <div class="top-bar-brand">
+      <img
+        src="assets/img/Carvana-logo-2.png"
+        alt="Carvana Reconditioning Academy"
+        class="top-bar-logo"
+      />
+      <div class="top-bar-text">
+        <span class="top-bar-title" data-i18n="app.title">
+          Reconditioning Academy
+        </span>
+        <span class="top-bar-subtitle" data-i18n="app.subtitle">
+          150-Point Vehicle Inspection
+        </span>
+      </div>
+    </div>
+
+    <!-- LANGUAGE TOGGLE (EN / ES / 中文) -->
+    <div class="lang-toggle" role="radiogroup" aria-label="Language selector">
+      <button
+        class="lang-btn is-active"
+        data-lang="en"
+        aria-pressed="true"
+      >
+        EN
+      </button>
+      <button
+        class="lang-btn"
+        data-lang="es"
+        aria-pressed="false"
+      >
+        ES
+      </button>
+      <button
+        class="lang-btn"
+        data-lang="zh"
+        aria-pressed="false"
+      >
+        中文
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE LAYOUT -->
+  <div class="page-layout">
+    <!-- SIDEBAR / COURSE MENU -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <h2 class="sidebar-heading" data-i18n="sidebar.progressTitle">
+          Course Progress
+        </h2>
+        <p class="sidebar-subheading" data-i18n="sidebar.progressSubtitle">
+          Track your learning journey
+        </p>
+
+        <div class="progress-wrapper" aria-label="Course progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-percent" id="progressPercent">0%</div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Lesson navigation">
+          <button class="nav-item is-active" data-target="#hero">
+            <span data-i18n="nav.welcome">Welcome</span>
+          </button>
+          <button class="nav-item" data-target="#standard">
+            <span data-i18n="nav.standard">The Carvana Standard</span>
+          </button>
+          <button class="nav-item" data-target="#flow">
+            <span data-i18n="nav.flow">Flow in the Recon Center</span>
+          </button>
+          <button class="nav-item" data-target="#quality">
+            <span data-i18n="nav.quality">Quality &amp; Safety</span>
+          </button>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <!-- HERO SECTION (CAR BACKGROUND + TEXT OVERLAY) -->
+      <section id="hero" class="panel hero-panel" aria-labelledby="hero-heading">
+        <div class="hero-visual">
+          <div class="hero-text-overlay">
+            <h1 class="hero-heading" id="hero-heading" data-i18n="hero.heading">
+              From arrival to delivery, the 150-point inspection is our promise.
+            </h1>
+            <p class="hero-tagline" data-i18n="hero.tagline">
+              Learn what the 150-point inspection is, why it matters, and how "done
+              right" looks in the recon center.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FLOATING SEPARATOR LINE -->
+      <div class="separator-line"></div>
+
+      <!-- WELCOME VIDEO PANEL -->
+      <section class="panel" aria-labelledby="welcome-title">
+        <h2 class="section-title" id="welcome-title" data-i18n="welcome.title">
+          "Welcome"
+        </h2>
+
+        <p class="section-intro" data-i18n="welcome.intro">
+          Start with a quick overview of how Carvana inspection centers work and
+          where you fit into the process.
+        </p>
+
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/c7O7oZzzETY"
+            title="Carvana Under the Hood - Inspection Centers"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+
+      <!-- FLOATING SEPARATOR LINE -->
+      <div class="separator-line"></div>
+
+      <!-- SECTION ONE: THE CARVANA STANDARD -->
+      <section
+        id="standard"
+        class="panel"
+        aria-labelledby="standard-heading"
+      >
+        <h2
+          class="section-title"
+          id="standard-heading"
+          data-i18n="standard.heading"
+        >
+          Section One: The Carvana Standard
+        </h2>
+
+        <div class="two-col">
+          <div class="col-text">
+            <p class="body-copy" data-i18n="standard.body1">
+              The Carvana Standard is the company's benchmark for ensuring
+              every vehicle is safe, clean, reconditioned, and ready for
+              delivery. It's the foundation of how Carvana earns customer
+              trust.
+            </p>
+            <p class="body-copy" data-i18n="standard.body2">
+              Click on the items below to explore the core pillars of the
+              standard and see how your work contributes to every customer
+              experience.
+            </p>
+          </div>
+          <div class="col-visual">
+            <img
+              src="assets/img/icon-clipboardchecklist.png"
+              alt="Checklist icon illustrating the Carvana Standard"
+              class="clipboard-icon"
+            />
+          </div>
+        </div>
+
+        <!-- ACCORDION: PILLARS -->
+        <div class="accordion" aria-label="Carvana Standard pillars">
+          <!-- Safety First -->
+          <article class="accordion-item is-open">
+            <button class="accordion-header" type="button">
+              <span class="accordion-title" data-i18n="standard.safety.title">
+                Safety First
+              </span>
+              <span class="accordion-title right" data-i18n="standard.safety.title_alt">
+                Safety First
+              </span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              <p class="body-copy" data-i18n="standard.safety.body">
+                Carvana verifies that every vehicle meets essential safety
+                requirements before it ever reaches a customer. This includes:
+              </p>
+              <ul class="checklist">
+                <li data-i18n="standard.safety.brakes">Brakes</li>
+                <li data-i18n="standard.safety.tires">Tires</li>
+                <li data-i18n="standard.safety.steering">Steering</li>
+                <li data-i18n="standard.safety.suspension">Suspension</li>
+                <li data-i18n="standard.safety.lights">Lights</li>
+                <li data-i18n="standard.safety.airbags">
+                  Airbags &amp; onboard diagnostics
+                </li>
+              </ul>
+              <p class="body-copy emphasis" data-i18n="standard.safety.note">
+                If it's not safe, it does not move forward.
+              </p>
+
+              <div class="icon-row">
+                <img
+                  src="assets/img/icon-brakes.png"
+                  alt="Brakes icon"
+                  class="pillar-icon"
+                />
+                <img
+                  src="assets/img/icon-tire.png"
+                  alt="Tire icon"
+                  class="pillar-icon"
+                />
+                <img
+                  src="assets/img/icon-steering.png"
+                  alt="Steering wheel icon"
+                  class="pillar-icon"
+                />
+                <img
+                  src="assets/img/icon-suspension.png"
+                  alt="Suspension icon"
+                  class="pillar-icon"
+                />
+              </div>
+            </div>
+          </article>
+
+          <!-- Full Mechanical Confidence -->
+          <article class="accordion-item">
+            <button class="accordion-header" type="button">
+              <span
+                class="accordion-title"
+                data-i18n="standard.mechanical.title"
+              >
+                Full Mechanical Confidence
+              </span>
+              <span
+                class="accordion-title right"
+                data-i18n="standard.mechanical.title_alt"
+              >
+                Full Mechanical Confidence
+              </span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              <p class="body-copy" data-i18n="standard.mechanical.body">
+                Beyond safety, every major system is tested and verified to be
+                in working condition so that customers can drive away with
+                confidence.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cleanliness & Appearance -->
+          <article class="accordion-item">
+            <button class="accordion-header" type="button">
+              <span
+                class="accordion-title"
+                data-i18n="standard.clean.title"
+              >
+                Cleanliness &amp; Appearance
+              </span>
+              <span
+                class="accordion-title right"
+                data-i18n="standard.clean.title_alt"
+              >
+                Cleanliness &amp; Appearance
+              </span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              <p class="body-copy" data-i18n="standard.clean.body">
+                Vehicles are thoroughly detailed inside and out so the car that
+                arrives in a customer's driveway feels truly "like new."
+              </p>
+              
+              <div class="video-frame">
+                <iframe
+                  src="https://www.youtube.com/embed/b9EW0Qcncsw"
+                  title="Vehicle Detailing Process"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          </article>
+
+          <!-- Transparency & Accuracy -->
+          <article class="accordion-item">
+            <button class="accordion-header" type="button">
+              <span
+                class="accordion-title"
+                data-i18n="standard.transparency.title"
+              >
+                Transparency &amp; Accuracy
+              </span>
+              <span
+                class="accordion-title right"
+                data-i18n="standard.transparency.title_alt"
+              >
+                Transparency &amp; Accuracy
+              </span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              <p class="body-copy" data-i18n="standard.transparency.body">
+                All findings are documented accurately and shared with customers
+                in the vehicle listing so there are no surprises.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- FLOATING SEPARATOR LINE -->
+      <div class="separator-line"></div>
+
+      <!-- SECTION TWO: FLOW IN THE RECON CENTER -->
+      <section
+        id="flow"
+        class="panel"
+        aria-labelledby="flow-heading"
+      >
+        <h2
+          class="section-title"
+          id="flow-heading"
+          data-i18n="flow.heading"
+        >
+          Section Two: Flow in the Recon Center
+        </h2>
+        
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/8zD0OzaFLAI"
+            title="Flow in the Recon Center"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="two-col flow-content">
+          <div class="col-text">
+            <p class="body-copy" data-i18n="flow.body1">
+              Every vehicle moves through a planned sequence of steps—from arrival and intake, to mechanical inspection, cosmetic work, detailing, and final quality checks.
+            </p>
+            <p class="body-copy" data-i18n="flow.body2">
+              Understanding this flow helps you see where your role fits in the process and how timing, communication, and accuracy keep the lane moving efficiently.
+            </p>
+            <p class="body-copy" data-i18n="flow.body3">
+              Each stage has specific checkpoints and quality standards that ensure vehicles meet the Carvana Standard before moving to the next phase.
+            </p>
+          </div>
+          <div class="col-visual">
+            <div class="video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/8zD0OzaFLAI"
+                title="Recon Center Process"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FLOATING SEPARATOR LINE -->
+      <div class="separator-line"></div>
+
+      <!-- SECTION THREE: QUALITY & SAFETY -->
+      <section
+        id="quality"
+        class="panel"
+        aria-labelledby="quality-heading"
+      >
+        <h2
+          class="section-title"
+          id="quality-heading"
+          data-i18n="quality.heading"
+        >
+          Section Three: Quality &amp; Safety
+        </h2>
+        
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/oixietkHwRw"
+            title="Quality & Safety Standards"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <p class="body-copy" data-i18n="quality.body1">
+          Quality and safety are everyone's responsibility. This section connects your daily tasks to the bigger picture: safe vehicles on the road, honest listings, and customers who trust that the 150-point inspection is more than just a checklist—it is a promise.
+        </p>
+        
+        <p class="body-copy" data-i18n="quality.body2">
+          Final inspection checks, proper documentation, and knowing how to escalate safety concerns are critical skills that protect both customers and the Carvana reputation.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
