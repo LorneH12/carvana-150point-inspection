@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- GLOBAL HEADER (overlayed on hero) -->
+  <!-- GLOBAL HEADER (floats over hero) -->
   <header class="global-header">
     <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle course menu">
       &#9776;
@@ -25,9 +25,10 @@
     </div>
   </header>
 
+  <!-- MAIN APP LAYOUT -->
   <div class="app-layout">
-    <!-- SIDEBAR (starts collapsed) -->
-    <aside class="sidebar collapsed" aria-label="Course navigation">
+    <!-- SIDEBAR (starts collapsed, own scroll) -->
+    <aside class="sidebar collapsed" id="courseSidebar" aria-label="Course navigation">
       <div class="sidebar-inner">
         <div class="sidebar-header">
           <h1 data-lang="en">Carvana 150-Point Inspection</h1>
@@ -62,7 +63,6 @@
             <span class="nav-status">●</span>
           </button>
 
-          <!-- Placeholders for future lessons -->
           <button class="nav-item" data-target="#section-placeholder-2">
             <span data-lang="en">Section 2 · Flow in the Recon Center</span>
             <span data-lang="es">Sección 2 · Flujo en el Centro</span>
@@ -78,7 +78,7 @@
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT AREA -->
     <main class="content">
       <!-- HERO / LANDING -->
       <section id="section-overview" class="course-section course-hero" data-lesson-id="0">
@@ -114,29 +114,42 @@
             </div>
           </div>
 
-          <!-- FX layer reserved for future glows / flares -->
           <div class="hero-fx-layer"></div>
         </div>
       </section>
 
-      <!-- Divider -->
+      <!-- DIVIDER -->
       <div class="divider-line"></div>
 
       <!-- WELCOME VIDEO BLOCK -->
-      <section class="course-section section-welcome" data-lesson-id="1">
+      <section id="section-welcome" class="course-section section-welcome" data-lesson-id="1">
         <div class="course-section-inner">
           <div class="welcome-card">
             <p class="welcome-label" data-lang="en">“Welcome”</p>
             <p class="welcome-label" data-lang="es">“Bienvenida”</p>
 
-            <!-- Placeholder – swap with real <video> when ready -->
-            <p class="welcome-placeholder" data-lang="en">PLACEHOLDER VIDEO</p>
-            <p class="welcome-placeholder" data-lang="es">VIDEO DE REFERENCIA</p>
+            <div class="welcome-video-wrapper">
+              <iframe
+                class="welcome-video"
+                src="https://www.youtube.com/embed/c7O7oZzzETY"
+                title="Carvana 150-Point Inspection · Welcome"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <p class="welcome-caption" data-lang="en">
+              Watch this short welcome message before you start Section One: The Carvana Standard.
+            </p>
+            <p class="welcome-caption" data-lang="es">
+              Mira este breve mensaje de bienvenida antes de comenzar la Sección Uno: El Estándar de Carvana.
+            </p>
           </div>
         </div>
       </section>
 
-      <!-- Divider -->
+      <!-- DIVIDER -->
       <div class="divider-line"></div>
 
       <!-- SECTION ONE: THE CARVANA STANDARD -->
@@ -162,16 +175,18 @@
             </div>
 
             <div class="standard-intro-graphic">
-              <img src="assets/img/blueprint-clipboard.png"
-                   alt="Checklist clipboard icon"
-                   class="standard-clipboard-img" />
+              <img
+                src="assets/img/icon-clipboardchecklist.png"
+                alt="Carvana checklist clipboard icon"
+                class="standard-clipboard-img"
+              />
             </div>
           </div>
 
-          <!-- Accordion: The Carvana Standard pillars -->
+          <!-- Accordion: Carvana Standard pillars -->
           <div class="accordion-standard" id="carvana-standard-accordion">
 
-            <!-- ITEM 1 – Safety First (open by default) -->
+            <!-- ITEM 1 – Safety First -->
             <article class="accordion-item open">
               <button class="accordion-header" type="button">
                 <span class="accordion-title" data-lang="en">Safety First</span>
@@ -215,10 +230,10 @@
                     </p>
                   </div>
 
-                  <!-- Icons column -->
                   <div class="standard-icons">
                     <img src="assets/img/icon-brakes.png" alt="Brakes icon" />
-                    <img src="assets/img/icon-tires.png" alt="Tires icon" />
+                    <img src="assets/img/icon-tire.png" alt="Tire icon" />
+                    <img src="assets/img/icon-suspension.png" alt="Suspension icon" />
                     <img src="assets/img/icon-steering.png" alt="Steering icon" />
                   </div>
                 </div>
@@ -227,4 +242,109 @@
 
             <!-- ITEM 2 – Full Mechanical Confidence -->
             <article class="accordion-item">
-              <button class="accordion
+              <button class="accordion-header" type="button">
+                <span class="accordion-title" data-lang="en">Full Mechanical Confidence</span>
+                <span class="accordion-title" data-lang="es">Confianza Mecánica Total</span>
+                <span class="accordion-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <div class="accordion-body-text">
+                    <p data-lang="en">
+                      Technicians follow a structured inspection process to confirm major systems are performing correctly.
+                    </p>
+                    <p data-lang="es">
+                      Los técnicos siguen un proceso de inspección estructurado para confirmar que los sistemas principales funcionen correctamente.
+                    </p>
+                    <p data-lang="en">
+                      <strong>Includes:</strong> engine, transmission, drivetrain, cooling, electrical, HVAC, emissions readiness.
+                    </p>
+                    <p data-lang="es">
+                      <strong>Incluye:</strong> motor, transmisión, tren motriz, sistema de enfriamiento, eléctrico, A/C y calefacción, emisiones.
+                    </p>
+                  </div>
+                  <div class="standard-icons">
+                    <img src="assets/img/icon-engine.png" alt="Engine icon" />
+                    <img src="assets/img/icon-gauge.png" alt="Diagnostic gauge icon" />
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- ITEM 3 – Cleanliness & Appearance -->
+            <article class="accordion-item">
+              <button class="accordion-header" type="button">
+                <span class="accordion-title" data-lang="en">Cleanliness & Appearance</span>
+                <span class="accordion-title" data-lang="es">Limpieza y Apariencia</span>
+                <span class="accordion-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <div class="accordion-body-text">
+                    <p data-lang="en">
+                      Vehicles are deep cleaned inside and out so customers feel like they’re stepping into a car that’s been cared for.
+                    </p>
+                    <p data-lang="es">
+                      Los vehículos se limpian a fondo por dentro y por fuera para que el cliente sienta que entra a un auto bien cuidado.
+                    </p>
+                  </div>
+                  <div class="standard-icons">
+                    <img src="assets/img/icon-cleanliness.png" alt="Cleanliness icon" />
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- ITEM 4 – Transparency & Accuracy -->
+            <article class="accordion-item">
+              <button class="accordion-header" type="button">
+                <span class="accordion-title" data-lang="en">Transparency & Accuracy</span>
+                <span class="accordion-title" data-lang="es">Transparencia y Exactitud</span>
+                <span class="accordion-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <div class="accordion-body-text">
+                    <p data-lang="en">
+                      What the customer sees online must match what they receive — features, mileage, condition, and disclosures.
+                    </p>
+                    <p data-lang="es">
+                      Lo que el cliente ve en línea debe coincidir con lo que recibe: características, kilometraje, condición y divulgaciones.
+                    </p>
+                  </div>
+                  <div class="standard-icons">
+                    <img src="assets/img/icon-transparency.png" alt="Transparency icon" />
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div> <!-- /accordion-standard -->
+
+        </div>
+      </section>
+
+      <!-- PLACEHOLDER SECTIONS FOR FUTURE LESSONS -->
+      <section id="section-placeholder-2" class="course-section section-placeholder">
+        <div class="course-section-inner">
+          <h2 data-lang="en">Section Two: Flow in the Recon Center</h2>
+          <h2 data-lang="es">Sección Dos: Flujo en el Centro de Reacondicionamiento</h2>
+          <p data-lang="en">Content coming soon.</p>
+          <p data-lang="es">Contenido próximamente.</p>
+        </div>
+      </section>
+
+      <section id="section-placeholder-3" class="course-section section-placeholder">
+        <div class="course-section-inner">
+          <h2 data-lang="en">Section Three: Quality & Safety</h2>
+          <h2 data-lang="es">Sección Tres: Calidad y Seguridad</h2>
+          <p data-lang="en">Content coming soon.</p>
+          <p data-lang="es">Contenido próximamente.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
