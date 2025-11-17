@@ -1,0 +1,94 @@
+/* ==========================================================================
+   HERO SECTION (TEXT OVER IMAGE)
+   ========================================================================== */
+.hero-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* The hero image container */
+.hero-visual {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 42vw, 480px);
+  background-image: url("assets/img/Intro image carvana2.png");
+  background-size: cover;
+  background-position: center right;
+}
+
+/* Dark gradient overlay for readability */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 10, 20, 0.75),
+    rgba(0, 10, 20, 0.35) 45%,
+    transparent
+  );
+}
+
+/* ============================================================
+   📱 MOBILE / TABLET (default styles)
+   Hero text BELOW the image
+   ============================================================ */
+.hero-content {
+  position: static;                 /* not overlaid */
+  margin: 1.75rem auto 0;
+  padding: 1rem 1.5rem;
+  max-width: min(42rem, 92%);
+  border-radius: 1.2rem;
+  background: rgba(0, 12, 25, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(0, 200, 255, 0.25);
+}
+
+/* Heading styling */
+.hero-heading {
+  font-size: clamp(1.65rem, 5vw, 2.4rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  text-shadow: 0 0 30px rgba(0, 200, 255, 0.6);
+}
+
+.hero-tagline {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #bfe9ff;
+}
+
+/* ============================================================
+   💻 DESKTOP (overlay RIGHT SIDE)
+   ============================================================ */
+@media (min-width: 1025px) {
+  .hero-panel {
+    position: relative;
+  }
+
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);     /* vertical centering */
+    margin: 0;
+    background: rgba(0, 12, 25, 0.6); /* subtle blur card */
+    max-width: 420px;                 /* stays on right side */
+    padding: 1.75rem 2rem;
+    border-radius: 1.3rem;
+
+    /* soft futuristic blueprint glow */
+    box-shadow:
+      0 18px 45px rgba(0, 0, 0, 0.6),
+      0 0 36px rgba(0, 200, 255, 0.35);
+  }
+
+  /* Larger, cinematic heading on desktop */
+  .hero-heading {
+    font-size: clamp(2rem, 2.2vw, 3rem);
+  }
+}
