@@ -2,77 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Carvana 150-Point Inspection</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carvana 150-Point Inspection Training</title>
-
-  <!-- Google Font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-
-
-<body class="lang-en">
-
-  <!-- ======================================================
-       GLOBAL HEADER
-  ======================================================= -->
+<body>
+  <!-- GLOBAL HEADER (overlayed on hero) -->
   <header class="global-header">
-
-    <!-- Sidebar toggle (left) -->
-    <button id="sidebar-toggle" aria-label="Toggle sidebar" class="sidebar-toggle">
-      ☰
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle course menu">
+      &#9776;
     </button>
 
-    <!-- Brand -->
     <div class="brand">
-      <span class="brand-mark">CV</span>
+      <img src="assets/img/carvana-logo-white.png" alt="Carvana logo" class="brand-logo" />
       <span class="brand-text">Reconditioning Academy</span>
     </div>
 
-    <!-- Course pill -->
-    <div class="course-pill">
-      <span class="pill-label">Training</span>
-      <span class="pill-title">150-Point Vehicle Inspection</span>
+    <div class="lang-toggle" aria-label="Language toggle">
+      <button class="lang-btn active" data-lang-btn="en">EN</button>
+      <button class="lang-btn" data-lang-btn="es">ES</button>
     </div>
-
-    <!-- Language toggle -->
-    <div class="lang-toggle" role="group" aria-label="Language selector">
-      <button class="lang-btn active" data-lang-select="en">EN</button>
-      <button class="lang-btn" data-lang-select="es">ES</button>
-    </div>
-
   </header>
 
-
-
-  <!-- ======================================================
-       LAYOUT WRAPPER (SIDEBAR + MAIN)
-  ======================================================= -->
   <div class="app-layout">
-
-    <!-- ======================================================
-         SIDEBAR
-    ======================================================= -->
-    <aside class="sidebar" aria-label="Course outline">
-
+    <!-- SIDEBAR (starts collapsed) -->
+    <aside class="sidebar collapsed" aria-label="Course navigation">
       <div class="sidebar-inner">
-
-        <!-- Header -->
         <div class="sidebar-header">
-          <h1 class="course-title" data-lang="en">Carvana 150-Point Inspection</h1>
-          <h1 class="course-title" data-lang="es">Inspección de 150 Puntos de Carvana</h1>
+          <h1 data-lang="en">Carvana 150-Point Inspection</h1>
+          <h1 data-lang="es">Inspección de 150 Puntos de Carvana</h1>
 
-          <p class="course-meta" data-lang="en">
-            New hire + refresher · 3 lessons · 15–20 minutes
-          </p>
-          <p class="course-meta" data-lang="es">
-            Nuevo ingreso + repaso · 3 lecciones · 15–20 minutos
-          </p>
+          <p data-lang="en">New hire + refresher · 3 lessons · 15–20 minutes</p>
+          <p data-lang="es">Nuevo ingreso + repaso · 3 lecciones · 15–20 minutos</p>
         </div>
 
         <!-- Progress card -->
@@ -81,408 +43,188 @@
           <span class="progress-label" data-lang="es">Progreso del curso</span>
 
           <div class="progress-bar">
-            <div class="progress-fill"></div>
+            <div class="progress-fill" id="progressFill"></div>
           </div>
-
-          <span class="progress-percent">0%</span>
+          <span class="progress-percent" id="progressPercent">0%</span>
         </div>
 
-
-        <!-- ======================================================
-             NAVIGATION (Lessons)
-        ======================================================= -->
+        <!-- Section nav -->
         <nav class="section-nav">
-
-          <button class="nav-item active" data-target="#section-overview" data-lesson="0">
-            <span class="nav-icon">🏁</span>
+          <button class="nav-item active" data-target="#section-overview">
             <span data-lang="en">Welcome & How This Works</span>
             <span data-lang="es">Bienvenida y Cómo Funciona</span>
-            <span class="nav-status"></span>
+            <span class="nav-status">●</span>
           </button>
 
-          <button class="nav-item" data-target="#section-lesson1" data-lesson="1">
-            <span class="nav-icon">🔧</span>
-            <span data-lang="en">Lesson 1 · What Is the 150-Point Inspection?</span>
-            <span data-lang="es">Lección 1 · ¿Qué es la Inspección de 150 Puntos?</span>
-            <span class="nav-status"></span>
+          <button class="nav-item" data-target="#section-carvana-standard">
+            <span data-lang="en">Section 1 · The Carvana Standard</span>
+            <span data-lang="es">Sección 1 · El Estándar de Carvana</span>
+            <span class="nav-status">●</span>
           </button>
 
-          <button class="nav-item" data-target="#section-lesson2" data-lesson="2">
-            <span class="nav-icon">🚗</span>
-            <span data-lang="en">Lesson 2 · Flow in the Recon Center</span>
-            <span data-lang="es">Lección 2 · Flujo en el Centro</span>
-            <span class="nav-status"></span>
+          <!-- Placeholders for future lessons -->
+          <button class="nav-item" data-target="#section-placeholder-2">
+            <span data-lang="en">Section 2 · Flow in the Recon Center</span>
+            <span data-lang="es">Sección 2 · Flujo en el Centro</span>
+            <span class="nav-status">●</span>
           </button>
 
-          <button class="nav-item" data-target="#section-lesson3" data-lesson="3">
-            <span class="nav-icon">🛡️</span>
-            <span data-lang="en">Lesson 3 · Quality & Safety</span>
-            <span data-lang="es">Lección 3 · Calidad y Seguridad</span>
-            <span class="nav-status"></span>
+          <button class="nav-item" data-target="#section-placeholder-3">
+            <span data-lang="en">Section 3 · Quality & Safety</span>
+            <span data-lang="es">Sección 3 · Calidad y Seguridad</span>
+            <span class="nav-status">●</span>
           </button>
-
-          <button class="nav-item" data-target="#final-assessment" data-lesson="4">
-            <span class="nav-icon">📘</span>
-            <span data-lang="en">Final Knowledge Check</span>
-            <span data-lang="es">Evaluación Final</span>
-            <span class="nav-status"></span>
-          </button>
-
         </nav>
-
-
-        <!-- ======================================================
-             SETTINGS (⚙️)
-        ======================================================= -->
-
-        <button id="settings-toggle" class="settings-btn">
-          ⚙️
-        </button>
-
-        <div id="settings-panel" class="settings-panel">
-
-          <!-- Progress Lock Toggle -->
-          <div class="settings-row">
-            <label class="settings-label" data-lang="en">Progress Lock</label>
-            <label class="settings-label" data-lang="es">Bloqueo de Progreso</label>
-
-            <label class="switch">
-              <input type="checkbox" id="lock-toggle" />
-              <span class="slider"></span>
-            </label>
-          </div>
-
-          <!-- Reset Progress -->
-          <div class="settings-row">
-            <button id="reset-progress" class="btn-reset">
-              <span data-lang="en">Reset Progress</span>
-              <span data-lang="es">Reiniciar Progreso</span>
-            </button>
-          </div>
-
-        </div>
-
       </div>
     </aside>
 
-
-
-
-    <!-- ======================================================
-         MAIN CONTENT (COURSE)
-    ======================================================= -->
-    <main class="content" id="main-content">
-
-
-
-
-      <!-- ======================================================
-           OVERVIEW SECTION
-      ======================================================= -->
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <!-- HERO / LANDING -->
       <section id="section-overview" class="course-section course-hero" data-lesson-id="0">
+        <div class="course-hero-shell">
+          <!-- Background image -->
+          <div class="hero-bg-layer">
+            <img
+              src="assets/img/Intro image carvana2.png"
+              alt="Carvana 150-point inspection blueprint background"
+              class="hero-bg-img"
+            />
+          </div>
+
+          <!-- Text overlay -->
+          <div class="hero-text-layer">
+            <div class="hero-text-panel">
+              <p class="hero-eyebrow" data-lang="en">Start here</p>
+              <p class="hero-eyebrow" data-lang="es">Comienza aquí</p>
+
+              <h1 class="hero-main-text" data-lang="en">
+                From arrival to delivery the 150-point inspection is our promise.
+              </h1>
+              <h1 class="hero-main-text" data-lang="es">
+                Desde la llegada hasta la entrega, la inspección de 150 puntos es nuestra promesa.
+              </h1>
+            </div>
+
+            <div class="hero-cta-row">
+              <button class="btn-primary" id="btn-start-course">
+                <span data-lang="en">Start Lesson 1</span>
+                <span data-lang="es">Comenzar Lección 1</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- FX layer reserved for future glows / flares -->
+          <div class="hero-fx-layer"></div>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="divider-line"></div>
+
+      <!-- WELCOME VIDEO BLOCK -->
+      <section class="course-section section-welcome" data-lesson-id="1">
+        <div class="course-section-inner">
+          <div class="welcome-card">
+            <p class="welcome-label" data-lang="en">“Welcome”</p>
+            <p class="welcome-label" data-lang="es">“Bienvenida”</p>
+
+            <!-- Placeholder – swap with real <video> when ready -->
+            <p class="welcome-placeholder" data-lang="en">PLACEHOLDER VIDEO</p>
+            <p class="welcome-placeholder" data-lang="es">VIDEO DE REFERENCIA</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="divider-line"></div>
+
+      <!-- SECTION ONE: THE CARVANA STANDARD -->
+      <section id="section-carvana-standard" class="course-section section-standard" data-lesson-id="2">
         <div class="course-section-inner">
 
-          <div class="hero-grid">
+          <h2 class="standard-section-title" data-lang="en">Section One: The Carvana Standard</h2>
+          <h2 class="standard-section-title" data-lang="es">Sección Uno: El Estándar de Carvana</h2>
 
-            <div class="hero-copy">
-
-              <p class="eyebrow" data-lang="en">Start here</p>
-              <p class="eyebrow" data-lang="es">Comienza aquí</p>
-
-              <h2 class="hero-title" data-lang="en">
-                Help every customer get a safe, clean, Carvana-ready vehicle.
-              </h2>
-              <h2 class="hero-title" data-lang="es">
-                Ayuda a cada cliente a recibir un vehículo seguro, limpio y listo para Carvana.
-              </h2>
-
-              <p class="hero-subtitle" data-lang="en">
-                Learn what the 150-Point Inspection is, why it matters, and what “done right”
-                looks like in the recon center.
+          <!-- Intro two-column -->
+          <div class="standard-intro-grid">
+            <div class="standard-intro-text">
+              <p data-lang="en">
+                <strong>The Carvana Standard</strong> is the company’s benchmark for ensuring every vehicle is safe,
+                clean, reconditioned, and ready for delivery. It’s the foundation of how Carvana earns customer trust.
+                Click on the items below to learn the core pillars:
               </p>
-              <p class="hero-subtitle" data-lang="es">
-                Aprende qué es la Inspección de 150 Puntos, por qué es importante y cómo se ve
-                el “trabajo bien hecho” en el centro de reacondicionamiento.
+              <p data-lang="es">
+                <strong>El Estándar de Carvana</strong> es el punto de referencia de la empresa para garantizar que cada vehículo
+                sea seguro, limpio, reacondicionado y listo para la entrega. Es la base de cómo Carvana genera confianza.
+                Haz clic en los elementos de abajo para conocer los pilares principales:
               </p>
-
-              <div class="hero-meta-row">
-                <span class="chip" data-lang="en">New hire & refresher</span>
-                <span class="chip" data-lang="es">Nuevo ingreso y repaso</span>
-                <span class="chip">Visual · Video · Procedural</span>
-              </div>
-
-              <div class="hero-actions">
-                <button class="btn-primary" id="btn-start-course">
-                  <span data-lang="en">Start Lesson 1</span>
-                  <span data-lang="es">Comenzar Lección 1</span>
-                </button>
-
-                <button class="btn-ghost" data-target="#section-lesson2">
-                  <span data-lang="en">Jump to Process Flow</span>
-                  <span data-lang="es">Ir al Flujo del Proceso</span>
-                </button>
-              </div>
-
             </div>
 
+            <div class="standard-intro-graphic">
+              <img src="assets/img/blueprint-clipboard.png"
+                   alt="Checklist clipboard icon"
+                   class="standard-clipboard-img" />
+            </div>
+          </div>
 
+          <!-- Accordion: The Carvana Standard pillars -->
+          <div class="accordion-standard" id="carvana-standard-accordion">
 
-            <!-- Hero card -->
-            <div class="hero-media">
-              <div class="hero-card">
-                <div class="hero-card-header">
-                  <span class="hero-chip" data-lang="en">Recon snapshot</span>
-                  <span class="hero-chip" data-lang="es">Vista del Centro</span>
-                  <span class="hero-status-dot"></span>
+            <!-- ITEM 1 – Safety First (open by default) -->
+            <article class="accordion-item open">
+              <button class="accordion-header" type="button">
+                <span class="accordion-title" data-lang="en">Safety First</span>
+                <span class="accordion-title" data-lang="es">Seguridad Primero</span>
+                <span class="accordion-icon" aria-hidden="true">+</span>
+              </button>
+
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <div class="accordion-body-text">
+                    <p data-lang="en">
+                      Carvana verifies that every vehicle meets essential safety requirements before it ever reaches a customer.
+                    </p>
+                    <p data-lang="es">
+                      Carvana verifica que cada vehículo cumpla con los requisitos de seguridad esenciales antes de llegar al cliente.
+                    </p>
+
+                    <p data-lang="en"><strong>Includes:</strong></p>
+                    <p data-lang="es"><strong>Incluye:</strong></p>
+
+                    <ul class="standard-list">
+                      <li data-lang="en">Brakes</li>
+                      <li data-lang="es">Frenos</li>
+                      <li data-lang="en">Tires</li>
+                      <li data-lang="es">Llantas</li>
+                      <li data-lang="en">Steering</li>
+                      <li data-lang="es">Dirección</li>
+                      <li data-lang="en">Suspension</li>
+                      <li data-lang="es">Suspensión</li>
+                      <li data-lang="en">Lights</li>
+                      <li data-lang="es">Luces</li>
+                      <li data-lang="en">Airbags & onboard diagnostics</li>
+                      <li data-lang="es">Bolsas de aire y diagnósticos a bordo</li>
+                    </ul>
+
+                    <p class="standard-rule" data-lang="en">
+                      ✔ If it’s not safe, it does not move forward.
+                    </p>
+                    <p class="standard-rule" data-lang="es">
+                      ✔ Si no es seguro, no avanza en el proceso.
+                    </p>
+                  </div>
+
+                  <!-- Icons column -->
+                  <div class="standard-icons">
+                    <img src="assets/img/icon-brakes.png" alt="Brakes icon" />
+                    <img src="assets/img/icon-tires.png" alt="Tires icon" />
+                    <img src="assets/img/icon-steering.png" alt="Steering icon" />
+                  </div>
                 </div>
-
-                <div class="hero-card-body">
-                  <img
-                    src="assets/img/Intro image carvana2.png"
-                    alt="Carvana recon center visual"
-                    class="hero-image"
-                  />
-                  <p class="hero-caption" data-lang="en">
-                    Replace this with an image from your recon center.
-                  </p>
-                  <p class="hero-caption" data-lang="es">
-                    Reemplaza esta imagen con una foto de tu centro.
-                  </p>
-                </div>
               </div>
-            </div>
-
-          </div>
-
-
-          <div class="block block-highlight block-inline in-view">
-            <h3 data-lang="en">Course goals</h3>
-            <h3 data-lang="es">Objetivos del curso</h3>
-
-            <p data-lang="en">
-              After this course, you will understand the 150-Point Inspection,
-              follow the recon flow, and perform your station’s steps confidently.
-            </p>
-            <p data-lang="es">
-              Después de este curso, comprenderás la Inspección de 150 Puntos,
-              seguirás el flujo del centro, y completarás los pasos de tu estación con confianza.
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- ======================================================
-           LESSON 1 (with quiz)
-      ======================================================= -->
-      <section id="section-lesson1" class="course-section" data-lesson-id="1">
-        <div class="course-section-inner">
-
-          <header class="section-header">
-            <p class="eyebrow" data-lang="en">Lesson 1</p>
-            <p class="eyebrow" data-lang="es">Lección 1</p>
-
-            <h2 class="section-title" data-lang="en">What is the 150-Point Inspection?</h2>
-            <h2 class="section-title" data-lang="es">¿Qué es la Inspección de 150 Puntos?</h2>
-          </header>
-
-          (LESSON CONTENT — TRUNCATED TO SAVE SCREEN SPACE)
-          (KEEP YOUR EXISTING LESSON BLOCKS HERE)
-
-          <!-- QUIZ BLOCK -->
-          <div class="block block-quiz reveal" data-quiz-id="1">
-
-            <h3 data-lang="en">Quick Check</h3>
-            <h3 data-lang="es">Revisión Rápida</h3>
-
-            <p data-lang="en">Which of the following is checked under the hood?</p>
-            <p data-lang="es">¿Cuál de los siguientes se revisa debajo del capó?</p>
-
-            <div class="quiz-choices">
-              <button class="quiz-choice" data-correct="false">
-                <span data-lang="en">Seat belt tension</span>
-                <span data-lang="es">Tensión del cinturón</span>
-              </button>
-
-              <button class="quiz-choice" data-correct="true">
-                <span data-lang="en">Cooling system (radiator, hoses, fans)</span>
-                <span data-lang="es">Sistema de enfriamiento</span>
-              </button>
-
-              <button class="quiz-choice" data-correct="false">
-                <span data-lang="en">Tail light condition</span>
-                <span data-lang="es">Condición de luces traseras</span>
-              </button>
-            </div>
-
-            <div class="quiz-feedback quiz-correct" style="display:none;">
-              <p data-lang="en">Correct!</p>
-              <p data-lang="es">¡Correcto!</p>
-            </div>
-
-            <div class="quiz-feedback quiz-incorrect" style="display:none;">
-              <p data-lang="en">Try again.</p>
-              <p data-lang="es">Intenta de nuevo.</p>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- ======================================================
-           LESSON 2 (with quiz)
-      ======================================================= -->
-      <section id="section-lesson2" class="course-section" data-lesson-id="2">
-        <div class="course-section-inner">
-
-          <header class="section-header">
-            <p class="eyebrow" data-lang="en">Lesson 2</p>
-            <p class="eyebrow" data-lang="es">Lección 2</p>
-
-            <h2 class="section-title" data-lang="en">150-Point Flow in the Recon Center</h2>
-            <h2 class="section-title" data-lang="es">Flujo de 150 Puntos</h2>
-          </header>
-
-          (KEEP EXISTING LESSON BLOCKS HERE)
-
-          <!-- QUIZ BLOCK -->
-          <div class="block block-quiz reveal" data-quiz-id="2">
-
-            <h3 data-lang="en">Quick Check</h3>
-            <h3 data-lang="es">Revisión Rápida</h3>
-
-            <p data-lang="en">What is the FIRST step in the recon flow?</p>
-            <p data-lang="es">¿Cuál es el PRIMER paso en el flujo?</p>
-
-            <div class="quiz-choices">
-              <button class="quiz-choice" data-correct="true">
-                <span data-lang="en">Check-in & walk-around</span>
-                <span data-lang="es">Recepción y revisión</span>
-              </button>
-
-              <button class="quiz-choice" data-correct="false">
-                <span data-lang="en">Road test</span>
-                <span data-lang="es">Prueba de manejo</span>
-              </button>
-
-              <button class="quiz-choice" data-correct="false">
-                <span data-lang="en">Final documentation</span>
-                <span data-lang="es">Documentación final</span>
-              </button>
-            </div>
-
-            <div class="quiz-feedback quiz-correct" style="display:none;">
-              <p data-lang="en">Correct!</p>
-              <p data-lang="es">¡Correcto!</p>
-            </div>
-
-            <div class="quiz-feedback quiz-incorrect" style="display:none;">
-              <p data-lang="en">Try again.</p>
-              <p data-lang="es">Intenta de nuevo.</p>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- ======================================================
-           LESSON 3 (content only)
-      ======================================================= -->
-      <section id="section-lesson3" class="course-section" data-lesson-id="3">
-        <div class="course-section-inner">
-
-          <header class="section-header">
-            <p class="eyebrow" data-lang="en">Lesson 3</p>
-            <p class="eyebrow" data-lang="es">Lección 3</p>
-
-            <h2 class="section-title" data-lang="en">Quality & Safety</h2>
-            <h2 class="section-title" data-lang="es">Calidad y Seguridad</h2>
-          </header>
-
-          (KEEP EXISTING LESSON CONTENT HERE)
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- ======================================================
-           FINAL ASSESSMENT (placeholder)
-      ======================================================= -->
-      <section id="final-assessment" class="course-section" data-lesson-id="4">
-        <div class="course-section-inner">
-
-          <header class="section-header">
-            <p class="eyebrow" data-lang="en">Final Check</p>
-            <p class="eyebrow" data-lang="es">Evaluación Final</p>
-
-            <h2 class="section-title" data-lang="en">Final Knowledge Check</h2>
-            <h2 class="section-title" data-lang="es">Evaluación Final</h2>
-          </header>
-
-          <div class="block block-highlight reveal">
-            <p data-lang="en">Final assessment coming soon.</p>
-            <p data-lang="es">Evaluación final próximamente.</p>
-          </div>
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- ======================================================
-           COURSE COMPLETE
-      ======================================================= -->
-      <section id="course-complete" class="course-section" style="display:none;">
-        <div class="course-section-inner">
-
-          <header class="section-header">
-            <h2 data-lang="en" class="section-title">Congratulations!</h2>
-            <h2 data-lang="es" class="section-title">¡Felicidades!</h2>
-          </header>
-
-          <div class="block block-highlight reveal">
-            <p data-lang="en">You’ve completed the full Carvana 150-Point Inspection training.</p>
-            <p data-lang="es">Has completado el entrenamiento de 150 Puntos de Carvana.</p>
-          </div>
-
-          <button id="restart-course" class="btn-primary">
-            <span data-lang="en">Restart Course</span>
-            <span data-lang="es">Reiniciar Curso</span>
-          </button>
-
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-
-
-
-
-  <!-- ======================================================
-       JAVASCRIPT
-  ======================================================= -->
-  <script src="script.js" defer></script>
-
-</body>
-</html>
+            </article>
+
+            <!-- ITEM 2 – Full Mechanical Confidence -->
+            <article class="accordion-item">
+              <button class="accordion
