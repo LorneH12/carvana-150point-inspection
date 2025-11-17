@@ -1,389 +1,460 @@
-/* ===========================================================
-   GLOBAL RESET
-=========================================================== */
+/* ============== RESET ============== */
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    font-family: "Inter", sans-serif;
-    background: #000510;
-    color: #e5e7eb;
-    overflow-x: hidden;
-    line-height: 1.6;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #000510;
+  color: #e5e7eb;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* Language toggle system */
-[data-lang] {
-    display: none;
-}
-
-[data-lang].active-lang {
-    display: block;
-}
-
-/* ===========================================================
-   BACKGROUND LAYERS
-=========================================================== */
+/* ============== BACKGROUND LAYERS ============== */
 #ground-bg {
-    position: fixed;
-    inset: 0;
-    background: url("assets/img/background-not-floating-1.png") center/cover no-repeat;
-    z-index: -3;
+  position: fixed;
+  inset: 0;
+  background: url("assets/img/background-not-floating-1.png") center/cover no-repeat;
+  z-index: -3;
 }
 
 #blueprint-grid {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -2;
-
-    background-image:
-        linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
-
-    background-size: 50px 50px;
-    animation: gridPulse 6s ease-in-out infinite;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(0, 200, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 200, 255, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridPulse 8s ease-in-out infinite;
 }
 
 @keyframes gridPulse {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 0.7; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
-/* ===========================================================
-   FLOATING TOP BAR
-=========================================================== */
+/* streaks (JS adds .ground-streak + animation) */
+.ground-streak {
+  position: fixed;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.9), transparent);
+  box-shadow: 0 0 18px rgba(0, 200, 255, 0.7);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ============== TOPBAR ============== */
 .topbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    padding: 0 24px;
-
-    background: rgba(2, 15, 35, 0.75);
-    border-bottom: 1px solid rgba(0, 200, 255, 0.25);
-    backdrop-filter: blur(12px);
-
-    z-index: 2000;
+  padding: 0 24px;
+  background: rgba(2, 15, 35, 0.8);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(0, 200, 255, 0.25);
+  z-index: 2000;
 }
 
 .topbar-menu-btn {
-    font-size: 26px;
-    background: transparent;
-    border: none;
-    color: #00c8ff;
-    cursor: pointer;
+  background: transparent;
+  border: none;
+  color: #00c8ff;
+  font-size: 26px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.topbar-menu-btn:hover {
+  transform: scale(1.1);
+  color: #33d9ff;
 }
 
 .topbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .topbar-logo {
-    height: 38px;
+  height: 34px;
+  filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
 }
 
 .topbar-title {
-    font-weight: 600;
-    font-size: 1.1rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(0, 200, 255, 0.6);
 }
 
-/* Glow line below top bar */
-.topbar-glow-line {
-    width: 100%;
-    height: 4px;
-
-    background: linear-gradient(90deg, transparent, #00c8ff, transparent);
-    opacity: 0.6;
-
-    margin-top: 70px;
-}
-
-/* ===========================================================
-   LANGUAGE TOGGLE
-=========================================================== */
 .lang-toggle {
-    display: flex;
-    gap: 6px;
-    background: rgba(0, 20, 40, 0.7);
-    padding: 4px;
-    border-radius: 999px;
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: rgba(0, 20, 40, 0.9);
+  border-radius: 999px;
+  border: 1px solid rgba(0, 200, 255, 0.3);
 }
 
 .lang-btn {
-    border: none;
-    padding: 6px 16px;
-    border-radius: 999px;
-    background: transparent;
-    color: #94a3b8;
-    cursor: pointer;
-    transition: 0.3s;
+  border: none;
+  border-radius: 999px;
+  padding: 5px 16px;
+  background: transparent;
+  color: #9fb9d4;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
 .lang-btn.active {
-    background: #00c8ff;
-    color: #000510;
+  background: #00c8ff;
+  color: #00131f;
+  box-shadow: 0 0 14px rgba(0, 200, 255, 0.7);
 }
 
-/* ===========================================================
-   SIDEBAR
-=========================================================== */
+.topbar-glow-line {
+  height: 4px;
+  width: 100%;
+  margin-top: 70px;
+  background: linear-gradient(90deg, transparent, #00c8ff, transparent);
+  opacity: 0.7;
+}
+
+/* ============== SIDEBAR ============== */
 .sidebar {
-    position: fixed;
-    top: 90px;
-    left: 0;
-    width: 290px;
-    height: calc(100vh - 90px);
+  position: fixed;
+  top: 74px;
+  left: 0;
+  width: 310px;
+  max-height: calc(100vh - 80px);
 
-    background: rgba(2, 15, 35, 0.92);
-    border-right: 1px solid rgba(0, 200, 255, 0.25);
-
-    padding: 20px;
-    overflow-y: auto;
-    backdrop-filter: blur(18px);
-
-    transform: translateX(-320px);
-    transition: 0.35s ease;
-    z-index: 1500;
+  background: rgba(2, 15, 35, 0.9);
+  border-right: 1px solid rgba(0, 200, 255, 0.25);
+  backdrop-filter: blur(16px);
+  padding: 20px;
+  overflow-y: auto;
+  transform: translateX(-320px);
+  transition: transform 0.3s ease;
+  z-index: 1500;
 }
 
-.sidebar.collapsed {
-    transform: translateX(0);
+body.sidebar-open .sidebar {
+  transform: translateX(0);
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .sidebar-title {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.sidebar-subtitle {
+  font-size: 0.85rem;
+  color: #9fb9d4;
 }
 
 .sidebar-progress {
-    margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .progress-bar {
-    width: 100%;
-    height: 10px;
-    background: rgba(0, 20, 40, 0.8);
-    border-radius: 999px;
-    overflow: hidden;
+  width: 100%;
+  height: 10px;
+  background: rgba(0, 20, 40, 0.8);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #0059b3, #00c8ff);
-    transition: width 0.5s ease;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #0059b3, #00c8ff);
+  transition: width 0.4s ease;
 }
 
 .progress-percent {
-    color: #00c8ff;
-    font-size: 0.85rem;
-    margin-top: 6px;
-    display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #00c8ff;
+  display: inline-block;
 }
 
 .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .nav-item {
-    padding: 10px 14px;
-    background: rgba(0, 15, 30, 0.6);
-    border: 1px solid rgba(0, 200, 255, 0.2);
-    border-radius: 10px;
-    color: #e5e7eb;
-    cursor: pointer;
-    transition: 0.25s;
-    text-align: left;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  background: rgba(0, 15, 30, 0.7);
+  color: #e5e7eb;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
 }
 
 .nav-item:hover {
-    background: rgba(0, 200, 255, 0.1);
-    border-color: #00c8ff;
+  background: rgba(0, 200, 255, 0.12);
+  transform: translateX(3px);
 }
 
 .nav-item.active {
-    background: rgba(0, 200, 255, 0.15);
-    border-color: #00c8ff;
+  background: rgba(0, 200, 255, 0.2);
+  border-color: #00c8ff;
+  box-shadow: 0 0 14px rgba(0, 200, 255, 0.5);
 }
 
-/* ===========================================================
-   MAIN CONTENT WRAPPER
-=========================================================== */
+/* ============== MAIN CONTENT ============== */
 #content {
-    margin-top: 120px;
-    padding: 20px;
-    margin-left: 0;
-    transition: margin-left 0.35s ease;
+  margin-top: 110px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
 }
 
-.sidebar.collapsed ~ #content {
-    margin-left: 300px;
+body.sidebar-open #content {
+  margin-left: 320px;
 }
 
-/* ===========================================================
-   HERO SECTION
-=========================================================== */
+/* ============== HERO ============== */
 .hero-section {
-    position: relative;
-    width: 100%;
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  width: 100%;
+  margin: 0 auto 50px;
+  max-width: 1200px;
 }
 
 .hero-image-wrapper {
-    width: 100%;
-    max-height: 450px;
-    overflow: hidden;
-    border-radius: 18px;
-    border: 1px solid rgba(0, 200, 255, 0.25);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 200, 255, 0.3);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.7);
 }
 
 .hero-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }
 
 .hero-text-card {
-    position: absolute;
-    left: 30px;
-    bottom: 40px;
-    background: rgba(0, 10, 25, 0.6);
-    padding: 20px 28px;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 200, 255, 0.3);
-    max-width: 500px;
-    backdrop-filter: blur(12px);
+  position: absolute;
+  left: 30px;
+  bottom: 35px;
+  max-width: 480px;
+  background: rgba(0, 10, 25, 0.7);
+  border-radius: 16px;
+  padding: 22px 28px;
+  border: 1px solid rgba(0, 200, 255, 0.3);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.7);
 }
 
 .hero-text {
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    line-height: 1.25;
-    font-weight: 700;
-    color: #fff;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.25;
+  font-weight: 700;
 }
 
-/* ===========================================================
-   FLOATING PANELS
-=========================================================== */
+/* ============== FLOATING PANELS ============== */
 .floating-panel {
-    background: rgba(2, 15, 35, 0.75);
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 900px;
-    margin: 60px auto;
-    border: 1px solid rgba(0, 200, 255, 0.25);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
+  margin: 60px auto;
+  padding: 40px;
+  max-width: 900px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 200, 255, 0.28);
+  background:
+    linear-gradient(135deg, rgba(0, 15, 35, 0.9), rgba(0, 10, 30, 0.7)),
+    url("assets/img/background-floating-1.png") center/cover no-repeat;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(18px);
 }
 
 .panel-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #00c8ff;
+  font-size: 2rem;
+  margin-bottom: 18px;
+  color: #00c8ff;
+  text-shadow: 0 0 18px rgba(0, 200, 255, 0.5);
 }
 
-/* ===========================================================
-   SEPARATORS
-=========================================================== */
+/* ============== SEPARATOR ============== */
 .separator {
-    width: 80%;
-    height: 4px;
-    margin: 50px auto;
-    background: url("assets/img/seperater-1.png") center/contain no-repeat;
+  display: block;
+  margin: 40px auto;
+  max-width: 780px;
+  width: 85%;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 14px rgba(0, 200, 255, 0.6));
 }
 
-/* ===========================================================
-   TWO-COLUMN LAYOUT
-=========================================================== */
+/* ============== VIDEO FRAME ============== */
+.video-frame {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,200,255,0.35);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============== TWO COLUMN LAYOUT ============== */
 .two-col {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.col-graphic {
+  text-align: center;
 }
 
 .panel-icon {
-    width: 180px;
-    filter: drop-shadow(0 0 20px rgba(0, 200, 255, 0.7));
+  width: 170px;
+  max-width: 100%;
+  filter: drop-shadow(0 0 20px rgba(0,200,255,0.7));
 }
 
-/* ===========================================================
-   ACCORDION
-=========================================================== */
+/* ============== ACCORDION ============== */
 .accordion {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .accordion-item {
-    background: rgba(0, 15, 30, 0.6);
-    border-radius: 16px;
-    border: 1px solid rgba(0, 200, 255, 0.3);
-    margin-bottom: 18px;
-    overflow: hidden;
+  margin-bottom: 16px;
+  background: rgba(0, 15, 30, 0.8);
+  border-radius: 14px;
+  border: 1px solid rgba(0, 200, 255, 0.3);
+  overflow: hidden;
 }
 
 .accordion-header {
-    width: 100%;
-    padding: 18px 26px;
-    background: transparent;
-    border: none;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    font-size: 1.1rem;
+  width: 100%;
+  padding: 16px 22px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .acc-icon {
-    width: 28px;
-    height: 28px;
-    border: 2px solid #00c8ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #00c8ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .accordion-body {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 26px;
-    transition: max-height 0.35s ease;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 22px;
+  transition: max-height 0.3s ease;
 }
 
 .accordion-item.open .accordion-body {
-    padding-top: 10px;
-    padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 18px;
 }
 
-/* Icons in accordion */
+.acc-list {
+  margin-top: 8px;
+  list-style: disc;
+  padding-left: 1.2rem;
+}
+
 .accordion-icons {
-    margin-top: 20px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+  margin-top: 16px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .accordion-icons img {
-    width: 80px;
-    filter: drop-shadow(0 0 20px rgba(0, 200, 255, 0.8));
+  width: 70px;
+  filter: drop-shadow(0 0 18px rgba(0,200,255,0.7));
+}
+
+/* ============== RESPONSIVE ============== */
+@media (max-width: 1000px) {
+  body.sidebar-open #content {
+    margin-left: 0;
+  }
+
+  .sidebar {
+    top: 74px;
+    width: 80%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 800px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-text-card {
+    left: 16px;
+    right: 16px;
+    bottom: 20px;
+    max-width: none;
+  }
+
+  .floating-panel {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    padding: 0 12px;
+  }
+
+  .topbar-title {
+    font-size: 0.95rem;
+  }
+
+  #content {
+    padding: 14px;
+  }
 }
