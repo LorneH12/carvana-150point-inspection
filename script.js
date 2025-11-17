@@ -1,196 +1,189 @@
-/* ==========================================================================
-   MODULE 1 — LANGUAGE SWITCHING
-   ========================================================================== */
+// ========================== LANGUAGE / I18N ==========================
 const LanguageModule = (() => {
-    const langButtons = document.querySelectorAll("[data-lang-btn]");
-    const langElements = document.querySelectorAll("[data-lang]");
+  let currentLang = "en";
 
-    function applyLanguage(lang) {
-        // Update active button
-        langButtons.forEach((btn) => {
-            const isActive = btn.dataset.langBtn === lang;
-            btn.classList.toggle("active", isActive);
-            btn.setAttribute("aria-pressed", isActive);
-        });
+  const buttons = document.querySelectorAll("[data-lang-btn]");
+  const i18nEls = document.querySelectorAll("[data-i18n]");
 
-        // Show correct content
-        langElements.forEach((el) => {
-            el.hidden = el.dataset.lang !== lang;
-        });
-    }
+  function applyTranslations() {
+    i18nEls.forEach((el) => {
+      const key = el.dataset.i18n;
+      const dict = translations[currentLang] || translations.en;
+      if (!dict || !dict[key]) return;
+      el.innerHTML = dict[key];
+    });
+  }
 
-    // Set up listeners
-    langButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            applyLanguage(btn.dataset.langBtn);
-        });
+  function setLanguage(lang) {
+    currentLang = lang;
+
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.langBtn === lang;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-pressed", isActive);
     });
 
-    // Default
-    applyLanguage("en");
+    applyTranslations();
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      setLanguage(btn.dataset.langBtn);
+    });
+  });
+
+  // Initialize
+  setLanguage("en");
+
+  return {
+    get current() {
+      return currentLang;
+    },
+    refresh: applyTranslations
+  };
 })();
 
-
-
-/* ==========================================================================
-   MODULE 2 — SIDEBAR TOGGLE
-   ========================================================================== */
+// ========================== SIDEBAR ==========================
 const SidebarModule = (() => {
-    const sidebar = document.getElementById("sidebar");
-    const toggleButton = document.getElementById("sidebarToggle");
-    const content = document.getElementById("content");
+  const sidebar = document.getElementById("sidebar");
+  const toggleBtn = document.getElementById("sidebarToggle");
 
-    toggleButton.addEventListener("click", () => {
-        const collapsed = sidebar.classList.toggle("collapsed");
-
-        toggleButton.setAttribute("aria-expanded", collapsed);
-        
-        // Adjust content area (CSS already handles this)
-    });
+  toggleBtn.addEventListener("click", () => {
+    const isOpen = document.body.classList.toggle("sidebar-open");
+    toggleBtn.setAttribute("aria-expanded", isOpen);
+  });
 })();
 
-
-
-/* ==========================================================================
-   MODULE 3 — SMOOTH SCROLL NAVIGATION
-   ========================================================================== */
+// ========================== NAVIGATION (SMOOTH SCROLL) ==========================
 const NavigationModule = (() => {
-    const navItems = document.querySelectorAll(".nav-item");
+  const items = document.querySelectorAll(".nav-item");
 
-    navItems.forEach((item) => {
-        item.addEventListener("click", () => {
-            const targetSelector = item.dataset.target;
-            const targetElement = document.querySelector(targetSelector);
-            if (!targetElement) return;
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      const targetId = item.dataset.target;
+      const target = document.querySelector(targetId);
+      if (!target) return;
 
-            navItems.forEach((n) => n.classList.remove("active"));
-            item.classList.add("active");
+      items.forEach((n) => n.classList.remove("active"));
+      item.classList.add("active");
 
-            const headerOffset = 130; // floating top bar
-            const y = targetElement.getBoundingClientRect().top + window.scrollY - headerOffset;
+      const topOffset = 110; // height of header + glow line
+      const y =
+        target.getBoundingClientRect().top + window.scrollY - topOffset;
 
-            window.scrollTo({
-                top: y,
-                behavior: "smooth",
-            });
-        });
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
     });
+  });
 })();
 
-
-
-/* ==========================================================================
-   MODULE 4 — ACCORDION + PROGRESS TRACKING
-   ========================================================================== */
+// ========================== ACCORDION + PROGRESS ==========================
 const AccordionModule = (() => {
-    const items = document.querySelectorAll(".accordion-item");
-    const progressFill = document.getElementById("progressFill");
-    const progressPercent = document.getElementById("progressPercent");
+  const items = document.querySelectorAll(".accordion-item");
+  const progressFill = document.getElementById("progressFill");
+  const progressPercent = document.getElementById("progressPercent");
+  const openedIndices = new Set();
 
-    const opened = new Set();
+  items.forEach((item, index) => {
+    const header = item.querySelector(".accordion-header");
+    const body = item.querySelector(".accordion-body");
 
-    items.forEach((item, index) => {
-        const header = item.querySelector(".accordion-header");
-        const body = item.querySelector(".accordion-body");
+    // Initialize open state
+    if (item.classList.contains("open")) {
+      body.style.maxHeight = body.scrollHeight + "px";
+      openedIndices.add(index);
+    }
 
-        // Default open
-        if (item.classList.contains("open")) {
-            opened.add(index);
-            body.style.maxHeight = body.scrollHeight + "px";
+    header.addEventListener("click", () => {
+      const isOpen = item.classList.contains("open");
+
+      // Close others
+      items.forEach((other, i) => {
+        if (i !== index) {
+          other.classList.remove("open");
+          const otherBody = other.querySelector(".accordion-body");
+          otherBody.style.maxHeight = null;
+          openedIndices.delete(i);
         }
+      });
 
-        header.addEventListener("click", () => {
-            const isOpen = item.classList.contains("open");
+      // Toggle this one
+      if (!isOpen) {
+        item.classList.add("open");
+        body.style.maxHeight = body.scrollHeight + "px";
+        openedIndices.add(index);
+      } else {
+        item.classList.remove("open");
+        body.style.maxHeight = null;
+        openedIndices.delete(index);
+      }
 
-            // Close all others
-            items.forEach((other, i) => {
-                if (i !== index) {
-                    other.classList.remove("open");
-                    other.querySelector(".accordion-body").style.maxHeight = null;
-                    opened.delete(i);
-                }
-            });
-
-            // Toggle clicked one
-            if (!isOpen) {
-                item.classList.add("open");
-                body.style.maxHeight = body.scrollHeight + "px";
-                opened.add(index);
-            } else {
-                item.classList.remove("open");
-                body.style.maxHeight = null;
-                opened.delete(index);
-            }
-
-            updateProgress();
-        });
+      updateProgress();
     });
+  });
 
-    function updateProgress() {
-        const total = items.length;
-        const percent = Math.round((opened.size / total) * 100);
+  function updateProgress() {
+    const total = items.length;
+    const percent = total === 0 ? 0 : Math.round((openedIndices.size / total) * 100);
+    progressFill.style.width = percent + "%";
+    progressPercent.textContent = percent + "%";
+  }
 
-        progressFill.style.width = percent + "%";
-        progressPercent.textContent = percent + "%";
-    }
-
-    updateProgress();
+  updateProgress();
 })();
 
+// ========================== PARALLAX ==========================
+const ParallaxModule = (() => {
+  const elements = document.querySelectorAll("[data-parallax]");
 
+  function onScroll() {
+    const scrollY = window.scrollY;
+    elements.forEach((el) => {
+      const speed = parseFloat(el.dataset.parallax) || 0;
+      el.style.transform = `translateY(${scrollY * speed}px)`;
+    });
+  }
 
-/* ==========================================================================
-   MODULE 5 — RANDOM BLUEPRINT STREAK ANIMATION
-   ========================================================================== */
-const BlueprintAnimation = (() => {
-    const ground = document.getElementById("ground-bg");
-
-    function addStreak() {
-        const streak = document.createElement("div");
-        streak.className = "ground-streak";
-
-        const size = Math.floor(Math.random() * 120 + 60);
-        const top = Math.random() * 100;
-        const duration = Math.random() * 3 + 2;
-
-        streak.style.width = `${size}px`;
-        streak.style.top = `${top}%`;
-        streak.style.left = `-${size}px`;
-        streak.style.animation = `streakMove ${duration}s linear forwards`;
-
-        ground.appendChild(streak);
-
-        setTimeout(() => streak.remove(), duration * 1000);
-    }
-
-    setInterval(addStreak, 2200);
-
-    // Inject keyframes
-    const style = document.createElement("style");
-    style.textContent = `
-        @keyframes streakMove {
-            0%   { opacity: 0; transform: translateX(0); }
-            20%  { opacity: 1; }
-            80%  { opacity: 0.5; }
-            100% { opacity: 0; transform: translateX(160vw); }
-        }
-    `;
-    document.head.appendChild(style);
+  window.addEventListener("scroll", onScroll);
+  onScroll();
 })();
 
+// ========================== BLUEPRINT STREAKS ==========================
+const BlueprintModule = (() => {
+  const ground = document.getElementById("ground-bg");
 
+  function addStreak() {
+    if (!ground) return;
+    const streak = document.createElement("div");
+    streak.className = "ground-streak";
 
-/* ==========================================================================
-   MODULE 6 — HERO RESPONSIVE behavior
-   ========================================================================== */
-const HeroModule = (() => {
-    const heroImg = document.querySelector(".hero-image");
+    const width = Math.random() * 140 + 60;
+    const top = Math.random() * 100;
+    const duration = Math.random() * 3 + 3;
 
-    function adjustHero() {
-        if (!heroImg) return;
-        heroImg.style.objectFit = "cover";
+    streak.style.width = `${width}px`;
+    streak.style.top = `${top}%`;
+    streak.style.left = `-${width}px`;
+    streak.style.animation = `streakMove ${duration}s linear forwards`;
+
+    ground.appendChild(streak);
+
+    setTimeout(() => streak.remove(), duration * 1000);
+  }
+
+  // inject keyframes
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes streakMove {
+      0%   { opacity: 0; transform: translateX(0); }
+      20%  { opacity: 1; }
+      80%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translateX(160vw); }
     }
+  `;
+  document.head.appendChild(style);
 
-    window.addEventListener("resize", adjustHero);
-    adjustHero();
+  setInterval(addStreak, 2200);
 })();
