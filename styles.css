@@ -1,0 +1,555 @@
+/* ==========================================================================
+   RESET & BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-image: url("assets/img/background-not-floating-1.png");
+  background-attachment: fixed;
+  background-size: cover;
+  color: #e8f9ff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+
+/* ==========================================================================
+   TOP BAR (FLOATING)
+   ========================================================================== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: rgba(0, 12, 25, 0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 200, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 1000;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.menu-button {
+  font-size: 26px;
+  color: #00c8ff;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.menu-button:hover {
+  background: rgba(0, 200, 255, 0.15);
+  box-shadow: 0 0 12px rgba(0, 200, 255, 0.4);
+}
+
+.top-bar-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.top-bar-logo {
+  height: 38px;
+  filter: drop-shadow(0 0 12px rgba(0, 200, 255, 0.5));
+}
+
+.top-bar-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.top-bar-subtitle {
+  font-size: 0.8rem;
+  color: #b6d5ea;
+}
+
+/* LANGUAGE TOGGLE */
+.lang-toggle {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: rgba(0, 20, 40, 0.7);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 200, 255, 0.4);
+}
+
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: #a7c2d6;
+  padding: 6px 15px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.lang-btn.is-active {
+  background: #00c8ff;
+  color: #00101a;
+  box-shadow: 0 0 14px rgba(0, 200, 255, 0.7);
+}
+
+
+/* ==========================================================================
+   PAGE SHELL (SIDEBAR + MAIN CONTENT)
+   ========================================================================== */
+.page-shell {
+  display: flex;
+  margin-top: 72px; /* below top bar */
+}
+
+
+/* ==========================================================================
+   SIDEBAR (FLOATING)
+   ========================================================================== */
+.sidebar {
+  width: 280px;
+  height: calc(100vh - 72px);
+  background: rgba(0, 18, 38, 0.85);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(0, 200, 255, 0.3);
+  box-shadow: 6px 0 28px rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 72px;
+  left: 0;
+  overflow-y: auto;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar.is-collapsed {
+  transform: translateX(-100%);
+}
+
+.sidebar-inner {
+  padding: 24px 18px 60px;
+}
+
+.sidebar-heading {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.sidebar-subheading {
+  font-size: 0.88rem;
+  color: #9dc4db;
+  margin-bottom: 16px;
+}
+
+/* Progress bar */
+.progress-wrapper {
+  margin-bottom: 26px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 8px;
+  background: rgba(0, 30, 60, 0.8);
+  overflow: hidden;
+  border: 1px solid rgba(0, 200, 255, 0.4);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #006cff, #00eaff);
+  transition: width 0.4s ease;
+  box-shadow: 0 0 16px rgba(0, 200, 255, 0.7);
+}
+
+.progress-percent {
+  margin-top: 6px;
+  color: #79e9ff;
+  font-size: 0.8rem;
+}
+
+/* Sidebar nav */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(0, 25, 48, 0.75);
+  color: #e8f9ff;
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.nav-item:hover {
+  background: rgba(0, 200, 255, 0.1);
+  border-color: #00c8ff;
+  transform: translateX(3px);
+  box-shadow: 0 0 14px rgba(0, 200, 255, 0.3);
+}
+
+.nav-item.is-active {
+  background: rgba(0, 200, 255, 0.17);
+  border-color: #00c8ff;
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+}
+
+
+/* ==========================================================================
+   MAIN CONTENT AREA (SHIFTS WHEN SIDEBAR OPENS)
+   ========================================================================== */
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 32px 28px 80px;
+  transition: margin-left 0.3s ease;
+}
+
+body.sidebar-closed .main-content {
+  margin-left: 0;
+}
+
+
+/* ==========================================================================
+   PANELS (FLOATING SECTIONS)
+   ========================================================================== */
+.panel {
+  position: relative;
+  max-width: 1150px;
+  margin: 0 auto 40px;
+  padding: 40px 36px;
+  border-radius: 22px;
+  background-image: url("assets/img/background-floating-1.png");
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(0, 200, 255, 0.3);
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.55),
+    0 0 26px rgba(0, 200, 255, 0.2);
+}
+
+
+/* ==========================================================================
+   HERO SECTION (TEXT OVER IMAGE)
+   ========================================================================== */
+.hero-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-visual {
+  position: relative;
+  height: clamp(300px, 42vw, 480px);
+  background-image: url("assets/img/Intro image carvana2.png");
+  background-size: cover;
+  background-position: center right;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 10, 20, 0.75),
+    rgba(0, 10, 20, 0.35) 45%,
+    transparent
+  );
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  transform: translateY(-50%);
+  max-width: 520px;
+}
+
+.hero-heading {
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(0, 200, 255, 0.65);
+}
+
+.hero-tagline {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #bfe9ff;
+}
+
+
+/* ==========================================================================
+   SEPARATOR LINE
+   ========================================================================== */
+.separator-line {
+  height: 3px;
+  max-width: 900px;
+  margin: 40px auto;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #00d6ff, transparent);
+  box-shadow: 0 0 22px rgba(0, 200, 255, 0.8);
+}
+
+
+/* ==========================================================================
+   VIDEO FRAME
+   ========================================================================== */
+.video-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-top: 18px;
+  border: 1px solid rgba(0, 200, 255, 0.4);
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.65),
+    0 0 26px rgba(0, 200, 255, 0.3);
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ==========================================================================
+   TWO-COLUMN LAYOUT
+   ========================================================================== */
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.clipboard-icon {
+  width: 200px;
+  filter: drop-shadow(0 0 14px rgba(0, 200, 255, 0.7));
+}
+
+
+/* ==========================================================================
+   ACCORDION
+   ========================================================================== */
+.accordion {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accordion-item {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(0, 12, 28, 0.7);
+  border: 1px solid rgba(0, 200, 255, 0.35);
+  transition: 0.2s;
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 18px 24px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.accordion-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.accordion-title.right {
+  opacity: 0.55;
+  font-size: 0.95rem;
+}
+
+.accordion-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 2px solid rgba(0, 200, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00e8ff;
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.is-open .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  transition: max-height 0.35s ease;
+}
+
+.accordion-item.is-open .accordion-body {
+  padding-bottom: 22px;
+}
+
+
+/* ==========================================================================
+   CLEANLINESS VIDEO (BOTTOM OF ACCORDION)
+   ========================================================================== */
+.accordion-video {
+  margin-top: 18px;
+}
+
+
+/* ==========================================================================
+   ICON ROW
+   ========================================================================== */
+.icon-row {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.pillar-icon {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 14px rgba(0, 200, 255, 0.7));
+}
+
+
+/* ==========================================================================
+   SPLIT BLOCK
+   ========================================================================== */
+.split-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 30px;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.split-text h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.flow-list,
+.quality-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flow-list li,
+.quality-list li {
+  background: rgba(0, 25, 48, 0.55);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 200, 255, 0.25);
+}
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .main-content {
+    padding: 24px 18px 80px;
+  }
+
+  .panel {
+    padding: 30px 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 0;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+
+  .split-block,
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-bar-text {
+    display: none;
+  }
+
+  .panel {
+    padding: 26px 20px;
+  }
+
+  .hero-heading {
+    font-size: 1.9rem;
+  }
+}
+
+
+/* ==========================================================================
+   SCROLLBAR STYLING
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 10, 20, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 200, 255, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 200, 255, 0.85);
+}
