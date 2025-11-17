@@ -1,6 +1,6 @@
-/* ==========================================================================
-   BASE RESET & GLOBAL SETTINGS
-   ========================================================================== */
+/* ===========================================================
+   GLOBAL RESET
+=========================================================== */
 *,
 *::before,
 *::after {
@@ -9,416 +9,355 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     font-family: "Inter", sans-serif;
     background: #000510;
-    overflow-x: hidden;
     color: #e5e7eb;
-    scroll-behavior: smooth;
+    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* Hide all non-active languages (JS toggles hidden attr) */
-[data-lang][hidden] {
-    display: none !important;
+/* Language toggle system */
+[data-lang] {
+    display: none;
 }
 
-/* ==========================================================================
-   GLOBAL BACKGROUND – GROUND LEVEL BLUEPRINT
-   ========================================================================== */
+[data-lang].active-lang {
+    display: block;
+}
 
+/* ===========================================================
+   BACKGROUND LAYERS
+=========================================================== */
 #ground-bg {
     position: fixed;
     inset: 0;
-    z-index: -3;
     background: url("assets/img/background-not-floating-1.png") center/cover no-repeat;
-    filter: brightness(0.9);
+    z-index: -3;
 }
 
-/* Blueprint Grid Overlay */
 #blueprint-grid {
     position: fixed;
     inset: 0;
-    z-index: -2;
     pointer-events: none;
+    z-index: -2;
 
     background-image:
-        linear-gradient(rgba(0, 200, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 200, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
+
     background-size: 50px 50px;
     animation: gridPulse 6s ease-in-out infinite;
 }
 
 @keyframes gridPulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.7; }
 }
 
-/* Random glowing blueprint streaks */
-.ground-streak {
+/* ===========================================================
+   FLOATING TOP BAR
+=========================================================== */
+.topbar {
     position: fixed;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.8), transparent);
-    box-shadow: 0 0 18px rgba(0, 200, 255, 0.6);
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* ==========================================================================
-   FLOATING TOP NAVIGATION BAR
-   ========================================================================== */
-
-.floating-topbar {
-    position: fixed;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(1250px, 94%);
-    height: 68px;
-
-    background: rgba(2, 15, 35, 0.75);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(0, 200, 255, 0.25);
-    border-radius: 16px;
+    top: 0;
+    width: 100%;
+    height: 70px;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
-    padding: 0 25px;
+    padding: 0 24px;
+
+    background: rgba(2, 15, 35, 0.75);
+    border-bottom: 1px solid rgba(0, 200, 255, 0.25);
+    backdrop-filter: blur(12px);
+
     z-index: 2000;
-
-    box-shadow:
-        0 6px 25px rgba(0, 0, 0, 0.4),
-        0 0 30px rgba(0, 200, 255, 0.12);
 }
 
-.menu-btn {
-    font-size: 28px;
+.topbar-menu-btn {
+    font-size: 26px;
     background: transparent;
     border: none;
-    cursor: pointer;
     color: #00c8ff;
-    transition: 0.3s ease;
+    cursor: pointer;
 }
 
-.menu-btn:hover {
-    transform: scale(1.15);
-    color: #33d9ff;
-}
-
-/* Brand */
 .topbar-brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-.brand-icon {
-    height: 34px;
-    filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.4));
+.topbar-logo {
+    height: 38px;
 }
 
-.brand-title {
-    font-size: 1.1rem;
+.topbar-title {
     font-weight: 600;
-    color: white;
-    text-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
+    font-size: 1.1rem;
 }
 
-/* Language Toggle */
+/* Glow line below top bar */
+.topbar-glow-line {
+    width: 100%;
+    height: 4px;
+
+    background: linear-gradient(90deg, transparent, #00c8ff, transparent);
+    opacity: 0.6;
+
+    margin-top: 70px;
+}
+
+/* ===========================================================
+   LANGUAGE TOGGLE
+=========================================================== */
 .lang-toggle {
     display: flex;
     gap: 6px;
+    background: rgba(0, 20, 40, 0.7);
     padding: 4px;
-    background: rgba(0, 20, 35, 0.6);
-    border: 1px solid rgba(0, 200, 255, 0.25);
-    border-radius: 30px;
+    border-radius: 999px;
 }
 
 .lang-btn {
-    padding: 6px 18px;
-    border-radius: 30px;
     border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.85rem;
-
+    padding: 6px 16px;
+    border-radius: 999px;
     background: transparent;
-    color: #9dbbd4;
-    transition: all 0.3s;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .lang-btn.active {
     background: #00c8ff;
-    color: #00121f;
-    box-shadow: 0 0 16px rgba(0, 200, 255, 0.6);
+    color: #000510;
 }
 
-/* ==========================================================================
+/* ===========================================================
    SIDEBAR
-   ========================================================================== */
-
+=========================================================== */
 .sidebar {
     position: fixed;
-    top: 100px;
-    left: 15px;
+    top: 90px;
+    left: 0;
+    width: 290px;
+    height: calc(100vh - 90px);
 
-    width: 310px;
-    max-height: calc(100vh - 130px);
+    background: rgba(2, 15, 35, 0.92);
+    border-right: 1px solid rgba(0, 200, 255, 0.25);
 
-    background: rgba(2, 15, 35, 0.88);
-    border: 1px solid rgba(0, 200, 255, 0.25);
-    backdrop-filter: blur(18px);
-    border-radius: 18px;
-
-    padding: 0;
+    padding: 20px;
     overflow-y: auto;
+    backdrop-filter: blur(18px);
 
-    transition: transform 0.35s ease;
+    transform: translateX(-320px);
+    transition: 0.35s ease;
     z-index: 1500;
 }
 
 .sidebar.collapsed {
-    transform: translateX(-350px);
+    transform: translateX(0);
 }
 
-.sidebar-inner {
-    padding: 22px;
+.sidebar-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
 }
 
-.sidebar h2 {
-    color: white;
-    margin-bottom: 6px;
-    text-shadow: 0 0 15px rgba(0, 200, 255, 0.4);
+.sidebar-progress {
+    margin-bottom: 20px;
 }
 
-.sidebar p {
-    color: #8ea7bf;
-    font-size: 0.85rem;
-    margin-bottom: 18px;
-}
-
-/* Progress Bar */
 .progress-bar {
-    background: rgba(0, 25, 50, 0.6);
-    border-radius: 30px;
+    width: 100%;
+    height: 10px;
+    background: rgba(0, 20, 40, 0.8);
+    border-radius: 999px;
     overflow: hidden;
-    height: 12px;
-    border: 1px solid rgba(0, 200, 255, 0.25);
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #0066cc, #00c8ff);
     width: 0%;
+    background: linear-gradient(90deg, #0059b3, #00c8ff);
     transition: width 0.5s ease;
 }
 
 .progress-percent {
-    margin-top: 8px;
-    font-size: 0.8rem;
     color: #00c8ff;
-    font-weight: 600;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: block;
 }
 
-/* Sidebar navigation */
 .sidebar-nav {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .nav-item {
-    background: rgba(0, 20, 35, 0.6);
-    color: white;
-    border: 1px solid rgba(0, 200, 255, 0.22);
-    padding: 12px 18px;
-    border-radius: 12px;
+    padding: 10px 14px;
+    background: rgba(0, 15, 30, 0.6);
+    border: 1px solid rgba(0, 200, 255, 0.2);
+    border-radius: 10px;
+    color: #e5e7eb;
     cursor: pointer;
+    transition: 0.25s;
     text-align: left;
-    font-size: 0.95rem;
-
-    transition: all 0.2s ease;
 }
 
 .nav-item:hover {
     background: rgba(0, 200, 255, 0.1);
-    transform: translateX(4px);
+    border-color: #00c8ff;
 }
 
 .nav-item.active {
-    background: rgba(0, 200, 255, 0.2);
+    background: rgba(0, 200, 255, 0.15);
     border-color: #00c8ff;
-    box-shadow: 0 0 18px rgba(0, 200, 255, 0.4);
 }
 
-/* ==========================================================================
-   MAIN CONTENT
-   ========================================================================== */
-
+/* ===========================================================
+   MAIN CONTENT WRAPPER
+=========================================================== */
 #content {
-    padding-top: 140px;
-    margin-left: 360px;
-
+    margin-top: 120px;
+    padding: 20px;
+    margin-left: 0;
     transition: margin-left 0.35s ease;
 }
 
 .sidebar.collapsed ~ #content {
-    margin-left: 20px;
+    margin-left: 300px;
 }
 
-/* ==========================================================================
+/* ===========================================================
    HERO SECTION
-   ========================================================================== */
-
+=========================================================== */
 .hero-section {
     position: relative;
-    margin-bottom: 40px;
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.hero-image-container {
-    position: relative;
+.hero-image-wrapper {
     width: 100%;
+    max-height: 450px;
     overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 200, 255, 0.25);
 }
 
 .hero-image {
     width: 100%;
     height: auto;
-    object-fit: cover;
     display: block;
+    object-fit: cover;
 }
 
 .hero-text-card {
     position: absolute;
-    left: 50px;
+    left: 30px;
     bottom: 40px;
-
-    background: rgba(0, 10, 25, 0.55);
-    padding: 30px 40px;
-    border-radius: 16px;
-
-    border: 1px solid rgba(0, 200, 255, 0.25);
-    backdrop-filter: blur(10px);
-
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(0, 10, 25, 0.6);
+    padding: 20px 28px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 200, 255, 0.3);
+    max-width: 500px;
+    backdrop-filter: blur(12px);
 }
 
-.hero-text-card h1 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
+.hero-text {
+    font-size: clamp(1.8rem, 4vw, 3rem);
     line-height: 1.25;
-    color: white;
-    text-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
+    font-weight: 700;
+    color: #fff;
 }
 
-/* ==========================================================================
+/* ===========================================================
    FLOATING PANELS
-   ========================================================================== */
-
+=========================================================== */
 .floating-panel {
-    width: min(820px, 90%);
-    margin: 60px auto;
-    padding: 45px;
-
-    background: url("assets/img/background-floating-1.png") center/cover no-repeat,
-                rgba(2, 15, 35, 0.7);
-
-    border: 1px solid rgba(0, 200, 255, 0.25);
+    background: rgba(2, 15, 35, 0.75);
+    padding: 40px;
     border-radius: 20px;
-    backdrop-filter: blur(18px);
-
-    box-shadow:
-        0 16px 45px rgba(0, 0, 0, 0.5),
-        0 0 35px rgba(0, 200, 255, 0.22);
+    max-width: 900px;
+    margin: 60px auto;
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
 }
 
 .panel-title {
     font-size: 2rem;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     color: #00c8ff;
-    text-shadow: 0 0 22px rgba(0, 200, 255, 0.4);
 }
 
-/* ==========================================================================
-   SEPARATOR
-   ========================================================================== */
-
+/* ===========================================================
+   SEPARATORS
+=========================================================== */
 .separator {
-    width: 90%;
-    max-width: 800px;
-    display: block;
-    margin: 40px auto;
-    opacity: 0.9;
-    filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
+    width: 80%;
+    height: 4px;
+    margin: 50px auto;
+    background: url("assets/img/seperater-1.png") center/contain no-repeat;
 }
 
-/* ==========================================================================
-   VIDEO FRAME
-   ========================================================================== */
-
-.video-frame {
-    position: relative;
-    padding-top: 56.25%;
-    border-radius: 16px;
-    overflow: hidden;
-
-    border: 1px solid rgba(0, 200, 255, 0.25);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-}
-
-.video-frame iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* ==========================================================================
-   TWO COLUMN LAYOUT
-   ========================================================================== */
-
+/* ===========================================================
+   TWO-COLUMN LAYOUT
+=========================================================== */
 .two-col {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 40px;
-    align-items: center;
 }
 
-.col-image img {
+.panel-icon {
     width: 180px;
-    filter: drop-shadow(0 0 22px rgba(0,200,255,0.45));
+    filter: drop-shadow(0 0 20px rgba(0, 200, 255, 0.7));
 }
 
-/* ==========================================================================
+/* ===========================================================
    ACCORDION
-   ========================================================================== */
+=========================================================== */
+.accordion {
+    margin-top: 30px;
+}
 
 .accordion-item {
-    margin-top: 20px;
+    background: rgba(0, 15, 30, 0.6);
+    border-radius: 16px;
     border: 1px solid rgba(0, 200, 255, 0.3);
-    border-radius: 14px;
+    margin-bottom: 18px;
     overflow: hidden;
-    background: rgba(0, 20, 35, 0.6);
 }
 
 .accordion-header {
     width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
+    padding: 18px 26px;
     background: transparent;
     border: none;
-    color: white;
-    font-weight: 600;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
     cursor: pointer;
+    font-size: 1.1rem;
 }
 
 .acc-icon {
-    font-size: 1.3rem;
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
+    border: 2px solid #00c8ff;
     border-radius: 50%;
-    border: 2px solid rgba(0,200,255,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -427,60 +366,24 @@ html, body {
 .accordion-body {
     max-height: 0;
     overflow: hidden;
-    padding: 0 20px;
-    transition: max-height 0.3s ease;
+    padding: 0 26px;
+    transition: max-height 0.35s ease;
 }
 
-.accordion-body ul {
+.accordion-item.open .accordion-body {
     padding-top: 10px;
+    padding-bottom: 20px;
 }
 
-.accordion-body li {
-    margin-bottom: 6px;
-}
-
-/* Icons */
+/* Icons in accordion */
 .accordion-icons {
-    margin-top: 16px;
+    margin-top: 20px;
     display: flex;
-    gap: 26px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .accordion-icons img {
-    width: 70px;
-    filter: drop-shadow(0 0 18px rgba(0,200,255,0.5));
-}
-
-/* ==========================================================================
-   RESPONSIVE
-   ========================================================================== */
-
-@media (max-width: 900px) {
-    #content {
-        margin-left: 20px !important;
-    }
-
-    .two-col {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-text-card {
-        left: 20px;
-        right: 20px;
-        width: auto;
-    }
-}
-
-@media (max-width: 600px) {
-    .floating-topbar {
-        width: 100%;
-        left: 0;
-        transform: none;
-        border-radius: 0;
-    }
-
-    .sidebar {
-        width: 90%;
-        left: 5%;
-    }
+    width: 80px;
+    filter: drop-shadow(0 0 20px rgba(0, 200, 255, 0.8));
 }
