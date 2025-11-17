@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Carvana 150-Point Inspection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ========================================================= -->
+<!-- GLOBAL BACKGROUND (GROUND-LEVEL BLUEPRINT WITH ANIMATION) -->
+<!-- ========================================================= -->
+<div id="ground-bg"></div>
+
+<!-- ====================== -->
+<!-- FLOATING HEADER (CARD) -->
+<!-- ====================== -->
+<header class="floating-header">
+
+    <button id="sidebarToggle" class="sidebar-button">&#9776;</button>
+
+    <div class="header-brand">
+        <img src="assets/img/Carvana-logo-2.png" class="header-logo" alt="Carvana Logo" />
+        <span class="header-subtitle">Reconditioning Academy</span>
+    </div>
+
+    <!-- Floating EN / ES Toggle -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang-btn="en">EN</button>
+        <button class="lang-btn" data-lang-btn="es">ES</button>
+    </div>
+
+</header>
+
+<!-- ================ -->
+<!-- SIDEBAR (FLOATS) -->
+<!-- ================ -->
+<aside id="sidebar" class="sidebar collapsed">
+    <div class="sidebar-inner">
+
+        <h2 data-lang="en">Carvana 150-Point Inspection</h2>
+        <h2 data-lang="es">Inspección de 150 Puntos de Carvana</h2>
+
+        <p data-lang="en">New hire + refresher · 3 lessons · 15–20 minutes</p>
+        <p data-lang="es">Nuevo ingreso + repaso · 3 lecciones · 15–20 minutos</p>
+
+        <div class="sidebar-progress">
+            <span data-lang="en">Course Progress</span>
+            <span data-lang="es">Progreso del Curso</span>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <div id="progressPercent" class="progress-percent">0%</div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+            <button data-target="#hero-section" class="nav-item active">
+                <span data-lang="en">Welcome & How This Works</span>
+                <span data-lang="es">Bienvenida y Cómo Funciona</span>
+            </button>
+
+            <button data-target="#section-1" class="nav-item">
+                <span data-lang="en">Section 1 · The Carvana Standard</span>
+                <span data-lang="es">Sección 1 · El Estándar de Carvana</span>
+            </button>
+
+            <button data-target="#section-2" class="nav-item">
+                <span data-lang="en">Section 2 · Flow in the Recon Center</span>
+                <span data-lang="es">Sección 2 · Flujo en el Centro</span>
+            </button>
+
+            <button data-target="#section-3" class="nav-item">
+                <span data-lang="en">Section 3 · Quality & Safety</span>
+                <span data-lang="es">Sección 3 · Calidad y Seguridad</span>
+            </button>
+        </nav>
+    </div>
+</aside>
+
+<!-- ================================ -->
+<!-- MAIN CONTENT (FLOATING SECTIONS) -->
+<!-- ================================ -->
+<main id="content">
+
+    <!-- ================ -->
+    <!-- HERO / HEADER    -->
+    <!-- ================ -->
+    <section id="hero-section" class="floating-panel hero-panel">
+        <div class="hero-bg">
+            <img src="assets/img/Intro image carvana2.png" class="hero-bg-img" alt="Intro Car Blueprint" />
+        </div>
+
+        <div class="hero-text">
+            <h1 data-lang="en">From arrival to delivery the 150-point inspection is our promise.</h1>
+            <h1 data-lang="es">Desde la llegada hasta la entrega, la inspección de 150 puntos es nuestra promesa.</h1>
+        </div>
+    </section>
+
+    <!-- Floating glowing separator -->
+    <img src="assets/img/seperater-1.png" class="separator" />
+
+    <!-- ================= -->
+    <!-- WELCOME VIDEO     -->
+    <!-- ================= -->
+    <section id="section-video" class="floating-panel">
+        <div class="welcome-block">
+
+            <h2 data-lang="en">“Welcome”</h2>
+            <h2 data-lang="es">“Bienvenida”</h2>
+
+            <div class="video-frame">
+                <iframe
+                    src="https://www.youtube.com/embed/c7O7oZzzETY"
+                    title="Carvana Welcome Video"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating separator -->
+    <img src="assets/img/seperater-1.png" class="separator" />
+
+    <!-- ======================= -->
+    <!-- SECTION ONE (FLOATING) -->
+    <!-- ======================= -->
+    <section id="section-1" class="floating-panel">
+
+        <h2 class="section-title" data-lang="en">Section One: The Carvana Standard</h2>
+        <h2 class="section-title" data-lang="es">Sección Uno: El Estándar de Carvana</h2>
+
+        <div class="two-col">
+            <div class="col-text">
+                <p data-lang="en">
+                    <strong>The Carvana Standard</strong> ensures every vehicle is safe, clean, reconditioned, and ready for delivery.
+                    Click the items below to learn its pillars.
+                </p>
+                <p data-lang="es">
+                    <strong>El Estándar de Carvana</strong> garantiza que cada vehículo esté seguro, limpio, reacondicionado y listo para entrega.
+                    Haz clic en los elementos para aprender más.
+                </p>
+            </div>
+
+            <div class="col-image">
+                <img src="assets/img/icon-clipboardchecklist.png" alt="Checklist icon" />
+            </div>
+        </div>
+
+        <!-- ===================== -->
+        <!-- ACCORDION (CUSTOM)   -->
+        <!-- ===================== -->
+        <div class="accordion">
+
+            <!-- ITEM 1 -->
+            <div class="accordion-item open">
+                <button class="accordion-header">
+                    <span data-lang="en">Safety First</span>
+                    <span data-lang="es">Seguridad Primero</span>
+                    <span class="acc-icon">−</span>
+                </button>
+                <div class="accordion-body">
+                    <p data-lang="en">Carvana verifies essential safety requirements before a vehicle moves forward. Includes:</p>
+                    <p data-lang="es">Carvana verifica requisitos esenciales de seguridad antes de avanzar el vehículo. Incluye:</p>
+
+                    <ul>
+                        <li data-lang="en">Brakes</li>
+                        <li data-lang="es">Frenos</li>
+                        <li data-lang="en">Tire</li>
+                        <li data-lang="es">Llanta</li>
+                        <li data-lang="en">Steering</li>
+                        <li data-lang="es">Dirección</li>
+                        <li data-lang="en">Suspension</li>
+                        <li data-lang="es">Suspensión</li>
+                        <li data-lang="en">Lights</li>
+                        <li data-lang="es">Luces</li>
+                        <li data-lang="en">Airbags & onboard diagnostics</li>
+                        <li data-lang="es">Bolsas de aire y diagnósticos a bordo</li>
+                    </ul>
+
+                    <p class="rule" data-lang="en">✔ If it’s not safe, it does not move forward.</p>
+                    <p class="rule" data-lang="es">✔ Si no es seguro, no avanza.</p>
+
+                    <div class="accordion-icons">
+                        <img src="assets/img/icon-brakes.png" alt="Brakes" />
+                        <img src="assets/img/icon-tire.png" alt="Tire" />
+                        <img src="assets/img/icon-suspension.png" alt="Suspension" />
+                        <img src="assets/img/icon-steering.png" alt="Steering" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEM 2 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span data-lang="en">Full Mechanical Confidence</span>
+                    <span data-lang="es">Confianza Mecánica Total</span>
+                    <span class="acc-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p data-lang="en">More lesson content coming soon.</p>
+                    <p data-lang="es">Más contenido próximamente.</p>
+                </div>
+            </div>
+
+            <!-- ITEM 3 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span data-lang="en">Cleanliness & Appearance</span>
+                    <span data-lang="es">Limpieza & Apariencia</span>
+                    <span class="acc-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p data-lang="en">More lesson content coming soon.</p>
+                    <p data-lang="es">Más contenido próximamente.</p>
+                </div>
+            </div>
+
+            <!-- ITEM 4 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span data-lang="en">Transparency & Accuracy</span>
+                    <span data-lang="es">Transparencia & Exactitud</span>
+                    <span class="acc-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p data-lang="en">More lesson content coming soon.</p>
+                    <p data-lang="es">Más contenido próximamente.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
