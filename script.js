@@ -1,222 +1,247 @@
 /* ==========================================================================
-   GLOBAL LANGUAGE TOGGLE (EN / ES)
+   TRAINING APP — MODULAR JS ARCHITECTURE
    ==========================================================================
-   All elements with [data-lang="en"] or [data-lang="es"] switch visibility.
+   All logic is organized under one global object to prevent namespace issues,
+   improve readability, and support future features (quizzes, SCORM/xAPI, etc.)
    ========================================================================== */
 
-(function () {
-    const langButtons = document.querySelectorAll("[data-lang-btn]");
-    const langElements = document.querySelectorAll("[data-lang]");
+const TrainingApp = {
 
-    function setLanguage(lang) {
-        langButtons.forEach((btn) => {
-            btn.classList.toggle("active", btn.dataset.langBtn === lang);
-        });
+    /* ============================================================
+       LANGUAGE MODULE
+       ============================================================ */
+    language: {
+        current: "en",
 
-        langElements.forEach((el) => {
-            el.style.display = el.dataset.lang === lang ? "" : "none";
-        });
+        init() {
+            this.buttons = document.querySelectorAll("[data-lang-btn]");
+            this.elements = document.querySelectorAll("[data-lang]");
 
-        document.documentElement.setAttribute("data-current-lang", lang);
-    }
+            this.buttons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    this.set(btn.dataset.langBtn);
+                });
+            });
 
-    langButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            setLanguage(btn.dataset.langBtn);
-        });
-    });
+            this.set("en");
+        },
 
-    setLanguage("en"); // default
-})();
+        set(lang) {
+            this.current = lang;
 
-/* ==========================================================================
-   SIDEBAR COLLAPSE / EXPAND
-   ==========================================================================
-   Sidebar floats. When collapsed → slides left. Main content auto-expands.
-   ========================================================================== */
+            this.buttons.forEach(btn =>
+                btn.classList.toggle("active", btn.dataset.langBtn === lang)
+            );
 
-(function () {
-    const sidebar = document.getElementById("sidebar");
-    const toggle = document.getElementById("sidebarToggle");
+            this.elements.forEach(el =>
+                el.style.display = (el.dataset.lang === lang) ? "" : "none"
+            );
+        }
+    },
 
-    toggle.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-    });
-})();
 
-/* ==========================================================================
-   NAVIGATION BUTTONS → SMOOTH SCROLL TO SECTIONS
-   ========================================================================== */
+    /* ============================================================
+       SIDEBAR MODULE
+       ============================================================ */
+    sidebar: {
+        init() {
+            this.sidebar = document.getElementById("sidebar");
+            this.toggleBtn = document.getElementById("sidebarToggle");
+            this.content = document.getElementById("content");
 
-(function () {
-    const navItems = document.querySelectorAll(".nav-item");
-    const content = document.getElementById("content");
+            this.toggleBtn.addEventListener("click", () => {
+                this.sidebar.classList.toggle("collapsed");
+            });
+        }
+    },
 
-    navItems.forEach((item) => {
-        item.addEventListener("click", () => {
+
+    /* ============================================================
+       NAVIGATION MODULE (Smooth Scroll + Highlight)
+       ============================================================ */
+    navigation: {
+        init() {
+            this.items = document.querySelectorAll(".nav-item");
+
+            this.items.forEach(item => {
+                item.addEventListener("click", () => {
+                    this.go(item);
+                });
+            });
+        },
+
+        go(item) {
             const target = document.querySelector(item.dataset.target);
             if (!target) return;
 
-            navItems.forEach((n) => n.classList.remove("active"));
+            // Update active state
+            this.items.forEach(n => n.classList.remove("active"));
             item.classList.add("active");
 
-            const yOffset = -80; // offset for floating header
-            const top = target.getBoundingClientRect().top + window.scrollY + yOffset;
+            const yOffset = -80;
+            const y = target.getBoundingClientRect().top + window.scrollY + yOffset;
 
-            window.scrollTo({ top, behavior: "smooth" });
-        });
-    });
-})();
-
-/* ==========================================================================
-   ACCORDION BEHAVIOR (OPEN/CLOSE + PROGRESS)
-   ==========================================================================
-   Neon accordion with auto-height transitions and progress tracking.
-   ========================================================================== */
-
-(function () {
-    const accItems = document.querySelectorAll(".accordion-item");
-    const progressFill = document.getElementById("progressFill");
-    const progressPercent = document.getElementById("progressPercent");
-    const openedSet = new Set();
-
-    accItems.forEach((item, index) => {
-        const header = item.querySelector(".accordion-header");
-        const body = item.querySelector(".accordion-body");
-
-        // Pre-open first accordion
-        if (item.classList.contains("open")) {
-            body.style.maxHeight = body.scrollHeight + "px";
-            openedSet.add(index);
+            window.scrollTo({ top: y, behavior: "smooth" });
         }
+    },
 
-        header.addEventListener("click", () => {
+
+    /* ============================================================
+       ACCORDION MODULE (Accessible + Animated)
+       ============================================================ */
+    accordion: {
+        init() {
+            this.items = document.querySelectorAll(".accordion-item");
+            this.progress = TrainingApp.progress;
+
+            this.items.forEach((item, index) => {
+                const header = item.querySelector(".accordion-header");
+                const body = item.querySelector(".accordion-body");
+
+                // Collapse all initially
+                body.style.maxHeight = null;
+                item.classList.remove("open");
+
+                header.addEventListener("click", () => {
+                    this.toggle(item, body, index);
+                });
+            });
+        },
+
+        toggle(item, body, index) {
             const isOpen = item.classList.contains("open");
 
             // Close all
-            accItems.forEach((other) => {
-                other.classList.remove("open");
-                const otherBody = other.querySelector(".accordion-body");
-                otherBody.style.maxHeight = null;
+            this.items.forEach(i => {
+                i.classList.remove("open");
+                const b = i.querySelector(".accordion-body");
+                b.style.maxHeight = null;
+                b.setAttribute("aria-hidden", "true");
+                i.querySelector(".accordion-header").setAttribute("aria-expanded", "false");
             });
 
-            // Reopen this one if it was closed
+            // Open if previously closed
             if (!isOpen) {
                 item.classList.add("open");
                 body.style.maxHeight = body.scrollHeight + "px";
-                openedSet.add(index);
+
+                body.setAttribute("aria-hidden", "false");
+                item.querySelector(".accordion-header").setAttribute("aria-expanded", "true");
+
+                this.progress.markComplete(index);
+            }
+        }
+    },
+
+
+    /* ============================================================
+       PROGRESS MODULE
+       ============================================================ */
+    progress: {
+        completed: new Set(),
+
+        init() {
+            this.fill = document.getElementById("progressFill");
+            this.percentText = document.getElementById("progressPercent");
+            this.update();
+        },
+
+        markComplete(index) {
+            this.completed.add(index);
+            this.update();
+        },
+
+        update() {
+            const total = document.querySelectorAll(".accordion-item").length;
+            const percent = Math.round((this.completed.size / total) * 100);
+
+            this.fill.style.width = percent + "%";
+            this.percentText.textContent = percent + "%";
+        }
+    },
+
+
+    /* ============================================================
+       ANIMATION MODULE — Optimized Blueprint FX
+       ============================================================ */
+    animations: {
+        init() {
+            this.ground = document.getElementById("ground-bg");
+            this.lastStreakTime = 0;
+            this.streakInterval = 1800; // ms
+
+            requestAnimationFrame(this.frame.bind(this));
+        },
+
+        frame(timestamp) {
+            // spawn streaks (performance-friendly)
+            if (timestamp - this.lastStreakTime > this.streakInterval) {
+                this.spawnStreak();
+                this.lastStreakTime = timestamp;
             }
 
-            updateProgress();
-        });
-    });
+            requestAnimationFrame(this.frame.bind(this));
+        },
 
-    function updateProgress() {
-        const total = accItems.length;
-        const percent = Math.round((openedSet.size / total) * 100);
+        spawnStreak() {
+            const streak = document.createElement("div");
+            streak.className = "ground-streak";
 
-        progressFill.style.width = percent + "%";
-        progressPercent.textContent = percent + "%";
-    }
+            const width = Math.random() * 90 + 40;
+            const top = Math.random() * 100;
 
-    updateProgress(); // initial update
-})();
+            Object.assign(streak.style, {
+                width: width + "px",
+                top: top + "%",
+                left: "-150px",
+                animation: "streakMove 3.5s linear forwards"
+            });
 
-/* ==========================================================================
-   TRON ANIMATION ENGINE
-   ==========================================================================
-   - Ground streaks
-   - Floating panel pulses
-   - Separator glow spikes
-   ==========================================================================
-   Uses dynamically injected <div> streak elements on #ground-bg and
-   animated shadows on .floating-panel & .separator.
-   ========================================================================== */
+            this.ground.appendChild(streak);
 
-(function () {
-    const ground = document.getElementById("ground-bg");
-    const panels = document.querySelectorAll(".floating-panel");
-    const seps = document.querySelectorAll(".separator");
-
-    /* --------------------------
-       RANDOM GROUND STREAKS
-       -------------------------- */
-    function spawnGroundStreak() {
-        const streak = document.createElement("div");
-        streak.className = "ground-streak";
-
-        const size = Math.random() * 80 + 40;
-        const top = Math.random() * 100;
-        const duration = Math.random() * 6 + 4;
-
-        streak.style.position = "fixed";
-        streak.style.left = "-120px";
-        streak.style.top = `${top}%`;
-        streak.style.width = `${size}px`;
-        streak.style.height = "2px";
-        streak.style.background = "rgba(0, 200, 255, 0.7)";
-        streak.style.boxShadow = "0 0 20px rgba(0, 200, 255, 0.9)";
-        streak.style.zIndex = -10;
-        streak.style.opacity = "0";
-
-        streak.style.animation = `streakMove ${duration}s linear forwards`;
-
-        ground.appendChild(streak);
-
-        setTimeout(() => streak.remove(), duration * 1000);
-    }
-
-    setInterval(spawnGroundStreak, 1600);
-
-    /* --------------------------
-       PANEL SOFT PULSE
-       -------------------------- */
-    function randomPanelPulse() {
-        const panel = panels[Math.floor(Math.random() * panels.length)];
-        if (!panel) return;
-
-        panel.style.transition = "box-shadow 0.6s ease";
-        panel.style.boxShadow = "0 12px 35px rgba(0, 200, 255, 0.45)";
-
-        setTimeout(() => {
-            panel.style.boxShadow = "0 12px 35px rgba(0, 200, 255, 0.2)";
-        }, 600);
-    }
-
-    setInterval(randomPanelPulse, 4500);
-
-    /* --------------------------
-       SEPARATOR GLOW PULSE
-       -------------------------- */
-    function pulseSeparator() {
-        const sep = seps[Math.floor(Math.random() * seps.length)];
-        if (!sep) return;
-
-        sep.style.transition = "filter 0.7s ease";
-        sep.style.filter = "drop-shadow(0 0 35px rgba(0, 200, 255, 1))";
-
-        setTimeout(() => {
-            sep.style.filter = "drop-shadow(0 0 18px rgba(0, 200, 255, 0.6))";
-        }, 700);
-    }
-
-    setInterval(pulseSeparator, 5200);
-
-})();
-
-/* ==========================================================================
-   KEYFRAME INJECTION FOR JS ANIMATIONS (streaking)
-   ========================================================================== */
-
-(function injectKeyframes() {
-    const style = document.createElement("style");
-    style.innerHTML = `
-        @keyframes streakMove {
-            0% { opacity: 0; transform: translateX(-20%); }
-            15% { opacity: 1; }
-            85% { opacity: 0.6; }
-            100% { opacity: 0; transform: translateX(120%); }
+            setTimeout(() => streak.remove(), 3500);
         }
-    `;
-    document.head.appendChild(style);
-})();
+    },
+
+
+    /* ============================================================
+       PRELOAD MODULE — Faster initial rendering
+       ============================================================ */
+    preload: {
+        init() {
+            const assets = [
+                "assets/img/background-floating-1.png",
+                "assets/img/background-not-floating-1.png",
+                "assets/img/seperater-1.png",
+                "assets/img/Intro image carvana2.png"
+            ];
+
+            assets.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+    },
+
+
+    /* ============================================================
+       INIT APP
+       ============================================================ */
+    init() {
+        this.language.init();
+        this.sidebar.init();
+        this.navigation.init();
+        this.progress.init();
+        this.accordion.init();
+        this.animations.init();
+        this.preload.init();
+    }
+};
+
+
+/* ==========================================================================
+   START THE APP
+   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    TrainingApp.init();
+});
