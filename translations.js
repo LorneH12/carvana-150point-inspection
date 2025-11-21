@@ -1,15 +1,14 @@
 // ============================================================================
 // TRANSLATIONS for EN / ES / ZH
-// These map directly to elements using data-i18n="key"
-// Keys now match the HTML attributes exactly.
+// Keys match data-i18n attributes used in index.html
 // ============================================================================
 
-const translations = {
+window.translations = {
   // ==========================================================================
   // ENGLISH
   // ==========================================================================
   en: {
-    // APP / HEADER
+    // HEADER / APP
     "app.title": "Reconditioning Academy",
     "app.subtitle": "150-Point Vehicle Inspection",
 
@@ -109,39 +108,32 @@ const translations = {
   // SPANISH
   // ==========================================================================
   es: {
-    // APP / HEADER
     "app.title": "Academia de Reacondicionamiento",
     "app.subtitle": "Inspección de Vehículos de 150 Puntos",
 
-    // SIDEBAR
     "sidebar.progressTitle": "Progreso del curso",
     "sidebar.progressSubtitle": "Sigue tu recorrido de aprendizaje",
 
-    // NAV
     "nav.welcome": "Bienvenida",
     "nav.standard": "El Estándar Carvana",
     "nav.flow": "Flujo en el Centro de Reacondicionamiento",
     "nav.quality": "Calidad y Seguridad",
 
-    // HERO
     "hero.heading":
       "Desde la llegada hasta la entrega, la inspección de 150 puntos es nuestra promesa.",
     "hero.tagline":
       "Aprende qué es la inspección de 150 puntos, por qué importa y cómo se ve el “trabajo bien hecho” en el centro de reacondicionamiento.",
 
-    // WELCOME SECTION
     "welcome.title": "“Bienvenida”",
     "welcome.intro":
       "Empieza con una breve descripción de cómo funcionan los centros de inspección de Carvana y dónde encaja tu rol en el proceso.",
 
-    // SECTION ONE – THE CARVANA STANDARD
     "standard.heading": "Sección Uno: El Estándar Carvana",
     "standard.body1":
       "El Estándar Carvana es el punto de referencia de la empresa para garantizar que cada vehículo sea seguro, limpio, reacondicionado y listo para la entrega. Es la base de cómo Carvana se gana la confianza del cliente.",
     "standard.body2":
       "Haz clic en los elementos de abajo para explorar los pilares principales del estándar y ver cómo tu trabajo contribuye a cada experiencia del cliente.",
 
-    // SAFETY FIRST
     "standard.safety.title": "Seguridad primero",
     "standard.safety.title_alt": "Seguridad primero",
     "standard.safety.body":
@@ -155,13 +147,11 @@ const translations = {
     "standard.safety.note":
       "Si no es seguro, el vehículo no avanza en el proceso.",
 
-    // FULL MECHANICAL CONFIDENCE
     "standard.mechanical.title": "Confianza mecánica total",
     "standard.mechanical.title_alt": "Confianza mecánica total",
     "standard.mechanical.body":
       "Más allá de la seguridad, cada sistema principal se prueba y se verifica para asegurar que esté en buenas condiciones de funcionamiento, de modo que el cliente pueda conducir con confianza.",
 
-    // CLEANLINESS & APPEARANCE
     "standard.clean.title": "Limpieza y apariencia",
     "standard.clean.title_alt": "Limpieza y apariencia",
     "standard.clean.body":
@@ -169,14 +159,13 @@ const translations = {
     "standard.clean.body2":
       "Una apariencia consistente genera confianza: el cliente debe sentir que su vehículo fue preparado con cuidado y atención al detalle, no solo lavado rápidamente.",
 
-    // TRANSPARENCY & ACCURACY
     "standard.transparency.title": "Transparencia y precisión",
     "standard.transparency.title_alt": "Transparencia y precisión",
     "standard.transparency.body":
       "Todos los hallazgos se documentan con precisión y se comparten con el cliente en el anuncio del vehículo para evitar sorpresas. Una buena documentación protege a los clientes, a los técnicos y al negocio.",
 
-    // SECTION TWO – FLOW IN THE RECON CENTER
-    "flow.heading": "Sección Dos: Flujo en el Centro de Reacondicionamiento",
+    "flow.heading":
+      "Sección Dos: Flujo en el Centro de Reacondicionamiento",
     "flow.split.heading": "Cómo se mueven los vehículos en el centro",
     "flow.split.body1":
       "Cada vehículo sigue un recorrido definido a través del centro de reacondicionamiento: llegada y registro, inspección mecánica, reparaciones cosméticas, detallado y verificaciones finales de calidad. Un flujo confiable mantiene los vehículos en movimiento, reduce cuellos de botella y protege la fecha de entrega prometida al cliente.",
@@ -191,7 +180,6 @@ const translations = {
     "flow.pillars.signal":
       "<strong>Señal y escalamiento:</strong> Cuando algo bloquea el avance del vehículo (piezas, hallazgos de seguridad, información faltante), las personas correctas se notifican rápidamente para restaurar el flujo.",
 
-    // SECTION THREE – QUALITY & SAFETY
     "quality.heading": "Sección Tres: Calidad y Seguridad",
     "quality.body1":
       "En Carvana, la calidad y la seguridad no son negociables. Cada inspección, prueba de torque, prueba de manejo y verificación protege al cliente y a los miembros del equipo que trabajaron en el vehículo.",
@@ -210,38 +198,31 @@ const translations = {
   // MANDARIN CHINESE (SIMPLIFIED)
   // ==========================================================================
   zh: {
-    // APP / HEADER
     "app.title": "整备学院",
     "app.subtitle": "150 项车辆检查",
 
-    // SIDEBAR
     "sidebar.progressTitle": "课程进度",
     "sidebar.progressSubtitle": "跟踪你的学习历程",
 
-    // NAV
     "nav.welcome": "欢迎",
     "nav.standard": "Carvana 标准",
     "nav.flow": "整备中心流程",
     "nav.quality": "质量与安全",
 
-    // HERO
     "hero.heading": "从车辆到达到交付，150 项检查是我们的承诺。",
     "hero.tagline":
       "了解什么是 150 项检查、为什么重要，以及在整备中心“做到位”是什么样子。",
 
-    // WELCOME SECTION
     "welcome.title": "“欢迎”",
     "welcome.intro":
       "先快速了解 Carvana 检查中心如何运作，以及你在整个流程中的角色。",
 
-    // SECTION ONE – THE CARVANA STANDARD
     "standard.heading": "第一部分：Carvana 标准",
     "standard.body1":
       "Carvana 标准确保每辆车都安全、整洁、完成整备并准备好交付，这是 Carvana 赢得客户信任的基础。",
     "standard.body2":
       "点击下方项目，探索这一标准的核心支柱，并了解你的工作如何影响每一次客户体验。",
 
-    // SAFETY FIRST
     "standard.safety.title": "安全第一",
     "standard.safety.title_alt": "安全第一",
     "standard.safety.body":
@@ -252,15 +233,14 @@ const translations = {
     "standard.safety.suspension": "悬挂系统",
     "standard.safety.lights": "灯光",
     "standard.safety.airbags": "安全气囊与车载诊断系统",
-    "standard.safety.note": "如果不够安全，车辆就不能继续往下一个环节。",
+    "standard.safety.note":
+      "如果不够安全，车辆就不能继续往下一个环节。",
 
-    // FULL MECHANICAL CONFIDENCE
     "standard.mechanical.title": "全面机械信心",
     "standard.mechanical.title_alt": "全面机械信心",
     "standard.mechanical.body":
       "除了安全，每个主要系统都要经过测试并确认运转正常，让客户可以放心驾驶。",
 
-    // CLEANLINESS & APPEARANCE
     "standard.clean.title": "清洁与外观",
     "standard.clean.title_alt": "清洁与外观",
     "standard.clean.body":
@@ -268,13 +248,11 @@ const translations = {
     "standard.clean.body2":
       "一致、良好的外观能够建立信任——客户应该感受到他们的车辆是被认真细致地准备过的，而不是草草清洗一下。",
 
-    // TRANSPARENCY & ACCURACY
     "standard.transparency.title": "透明与准确",
     "standard.transparency.title_alt": "透明与准确",
     "standard.transparency.body":
       "所有检查结果都会被准确记录，并展示在车辆信息中，避免任何意外情况。良好的记录可以保护客户、技术人员以及公司。",
 
-    // SECTION TWO – FLOW IN THE RECON CENTER
     "flow.heading": "第二部分：整备中心流程",
     "flow.split.heading": "车辆如何在整备中心流转",
     "flow.split.body1":
@@ -286,4 +264,21 @@ const translations = {
     "flow.pillars.clear":
       "<strong>清晰的交接：</strong> 每一阶段都应有明确负责人，避免车辆因“没人管”而被搁置。",
     "flow.pillars.ready":
-      "<
+      "<strong>预先准备好工作：</strong> 零件、工具、工单和文档尽可能在车辆到达工位之前就准备就绪。",
+    "flow.pillars.signal":
+      "<strong>信号与升级：</strong> 当出现零件缺失、安全问题或信息不全等阻塞情况时，应及时通知相关人员，尽快恢复流程。",
+
+    "quality.heading": "第三部分：质量与安全",
+    "quality.body1":
+      "在 Carvana，质量与安全是绝对底线。每一次检查、扭矩复核、试驾和验证，都是在保护客户以及为车辆付出努力的团队成员。",
+    "quality.body2":
+      "你在这一阶段的细致工作，确保每辆车在离开整备中心时不仅适合上路，而且有完整、清晰的记录。一旦发现问题，需要被修复、记录，并在必要时进行升级处理。",
+
+    "quality.list.checklists":
+      "<strong>善用检查清单：</strong> 清单的存在是为了确保在再忙的日子里也不会漏掉关键步骤。",
+    "quality.list.own":
+      "<strong>为你的签名负责：</strong> 当你勾选“完成”时，就等于在说“这项工作符合 Carvana 标准”。",
+    "quality.list.speak":
+      "<strong>为安全发声：</strong> 如果你看到车辆、工具或环境方面的安全隐患，请及时提出。安全是所有人的责任。",
+  },
+};
