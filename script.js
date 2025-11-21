@@ -59,8 +59,10 @@ function initLanguageToggle() {
     });
   });
 
-  // Default language
-  setLanguage("en");
+    // Default language (start in Spanish)
+  setLanguage("es");
+}
+
 }
 
 // ============================================================================
