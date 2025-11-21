@@ -22,6 +22,7 @@ function initLanguageToggle() {
   };
 
   function applyTranslations(lang) {
+    // translations should come from translations.js
     if (typeof translations !== "object" || !translations) return;
 
     const dict = translations[lang] || translations.en || {};
@@ -51,6 +52,7 @@ function initLanguageToggle() {
     applyTranslations(lang);
   }
 
+  // Click handlers
   langButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const lang = btn.dataset.lang;
@@ -59,10 +61,8 @@ function initLanguageToggle() {
     });
   });
 
-    // Default language (start in Spanish)
+  // Default language (start in Spanish)
   setLanguage("es");
-}
-
 }
 
 // ============================================================================
@@ -76,12 +76,17 @@ function initSidebarToggle() {
   if (!sidebar || !toggleBtn) return;
 
   // Ensure body starts as "open"
-  if (!body.classList.contains("sidebar-open") && !body.classList.contains("sidebar-closed")) {
+  if (
+    !body.classList.contains("sidebar-open") &&
+    !body.classList.contains("sidebar-closed")
+  ) {
     body.classList.add("sidebar-open");
   }
 
   function toggleSidebar() {
-    const isOpen = body.classList.contains("sidebar-open") && !body.classList.contains("sidebar-closed");
+    const isOpen =
+      body.classList.contains("sidebar-open") &&
+      !body.classList.contains("sidebar-closed");
 
     if (isOpen) {
       body.classList.add("sidebar-closed");
