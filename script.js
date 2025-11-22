@@ -1,9 +1,8 @@
 // ============================================================================
 // CONFIG
 // ============================================================================
-
 const ANALYTICS_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbxOutoyjQ8fGH60LFT3wFqYtLZY06py3zdzOpqBf4AK3GdHvrbsIFP_XLCzlwrTHrA4/exec";
+  "https://script.google.com/macros/s/AKfycbxOutoyjQ8fGH60LFT3wFqYtLZYY06py3zdzOpqBf4AK3GdHVrbslFP_XLCzIwTHrA4/exec";
 
 let analyticsSession = {
   sessionId: null,
